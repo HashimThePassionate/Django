@@ -101,4 +101,142 @@ pip uninstall virtualenvwrapper-win
 ```
 rmvirtualenv myenv
 ```
+
+###  Create a Django Project
+1. Once Django is installed, you can create a Django project using the following command:
+```
+django-admin startproject projectname
+```
+### After Creating Project projectname we see these levels
+<!-- 
+projectname
+    |____ projectname
+    |        |___ __init__.py   
+    |        |___ asgi.py
+    |        |___ settings.py
+    |        |___ urls.py
+    |        |___ wsgi.py
+    |____ manage.py 
+-->
+### __init__.py file
+This folder which contains __init__ file is considered as python package.
+
+### wsgi.py file
+WSGI (Web Server Gateway Interface) is a specification that describes how a web server communicates with web applications. WSGI provies synchronous Python App.
+
+### asgi.py file
+ASGI (Asynchronous Server Gateway Interface) it provides both synchronous and Asynchronous Python App.
+
+### Settings.py file
+This files contains all the information or data about project settings
+e.g. Database Configuration, Template install, Validation etc.
+
+### urls.py file
+This file contains information of url attached with application.
+
+### manage.py file
+manage.py atomatically created in each django project. It is a django commandline utility also sets DJANGO_SETTINGS_MODULE environment variable so that it can points to your django project's settings file.
+
+### How to run server
+1. Open your command prompt or terminal.
+2. Navigate to the root directory of your Django project. This is the directory that contains the manage.py file.
+3. To start the development server, run the following command:
+```
+python manage.py runserver
+```
+4. to quit server run the following command 
+On windows
+```
+crtl + c
+```
+### Setup Database in Django 
+1. To connect a MySQL database server to your Django project, you need to configure the database settings in your project's.
+2. settings.py file. Additionally, you'll want to make sure you have the MySQL Python connector (usually referred to as mysqlclient)
+3. Install the MySQLClient run the following command
+```
+pip install mysqlclient
+```
+4. Configure the Database Setting 
+Open your Django project's settings.py file and locate the DATABASES configuration. Update the settings to connect to your MySQL database. Here's an example configuration:
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'employee',          # Replace with your database name
+        'USER': 'root',              # Replace with your database user
+        'PASSWORD': 'root',          # Replace with your database password
+        'HOST': 'localhost',         # Replace with your database host (e.g., 'localhost' or an IP address)
+        'PORT': '3306',              # Replace with your database port (MySQL default is 3306)
+    }
+}
+
+```
+5. Apply Database Migrations
+After configuring the database settings, you'll need to apply migrations to create the database tables based on your Django models. Run the following commands:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+
+### How to Create and Start Application
+A Django project contain one or more applications inside project.
+Steps to create applications
+1. Go to Project Folder
+2. Run the following command
+```
+python manage.py startapp admission
+```
+3. creating multiple applications 
+run the following commands
+```
+python manage.py startapp admission
+python manage.py startapp student
+python manage.py startapp teacher
+```
+
+### Installing Application in our Project
+1. Open settings.py file and add apps name in INSTALLLED_APPS section 
+```
+INSTALLED_APPS [
+    'django.contrib.admin',
+    'course',
+    'admission',
+    'teacher',
+]
+```
+
+### Application Directory Structure 
+<!-- 
+course 
+    migrations
+        __init__.py
+    __init__.py
+    admin.py
+    apps.py
+    models.py
+    tests.py
+    views.py
+ -->
+
+### migrations 
+This folder contains __init__ file to convert folder to package, and it also contains all flies which are created when running makemigration commands.
+
+### __init__.py
+Convert folders files to package
+
+### admin.py file
+This file is used to register sql tables so we could perform CRUD operations from admin application. admin application is provided by django to perform CRUD operations.
+
+### apps.py file
+This file is used to config app
+
+### models.py file 
+This file is used to create our own model later these classes will be converted into database table by django 
+
+### tests.py file
+This files is used to create tests
+
+### views.py file
+This file contain all about business logic
+
 #### Regards Muhammad Hashim
