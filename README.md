@@ -239,4 +239,51 @@ This files is used to create tests
 ### views.py file
 This file contain all about business logic
 
+### Command to check django instllation folder
+```
+pip show django
+```
+### Write your first view
+open your views 
+```
+polls/views.py¶
+from django.http import HttpResponse
+
+def index(request):
+    return HttpResponse("Hello, world. You're at the polls index.")
+```
+1. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
+2. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
+<!-- 
+App/
+    __init__.py
+    admin.py
+    apps.py
+    migrations/
+        __init__.py
+    models.py
+    tests.py
+    urls.py
+    views.py
+ -->
+### In the App/urls.py file include the following code:
+```
+from django.urls import path
+from . import views
+urlpatterns = [
+    path("",views.myview, name="myView"),
+]
+```
+### The next step is to point the root URLconf at the project.urls module.
+1. In project/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list, so you have:
+```
+from django.contrib import admin
+from django.urls import include, path
+
+urlpatterns = [
+    path("polls/", include("polls.urls")),
+    path("admin/", admin.site.urls),
+]
+```
+
 #### Regards Muhammad Hashim
