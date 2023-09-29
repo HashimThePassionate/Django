@@ -303,7 +303,7 @@ finally:
     print("\nSocket closed")
 
 ```
-After running the script you should everything 
+After running the script you should see everything in response of header 
 
 ### Command to check django installation folder
 ```
