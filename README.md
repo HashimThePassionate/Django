@@ -305,6 +305,75 @@ finally:
 ```
 After running the script you should see everything in response of header 
 
+### Lets Building a simple HTTP Web Server 
+```
+from socket import *
+def createServer():
+    serversocket = socket(AF_INET, SOCK_STREAM)
+    try :
+        serversocket.bind(('localhost',9000))
+        serversocket.listen(5)
+        while(1):
+            (clientsocket, address) = serversocket.accept()
+            rd = clientsocket.recv(5000).decode()
+            pieces = rd.split("\n")
+            if ( len(pieces) > 0 ) : print(pieces[0])
+            data = "HTTP/1.1 200 OK\r\n"
+            data += "Content-Type: text/html; charset=utf-8\r\n"
+            data += "\r\n"
+            data += """<html><body><p> <b>Hello</b> <i>and</i> <strong>Welcome</strong> This is <u>our</u> X <sup>2</sup> Simple Html course
+        <marquee  direction="right" style="color: green;">In The Next Course we cover Styling using CSS</marquee>
+        and after that we move to dynamic manipulation using JavaScript</p><br>
+    <a href="https://www.google.co.uk/" target="_blank"><img src="https://images.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png" alt="" width="200px"></a><br>
+    <a href="https://www.linkedin.com/in/hashimthepassionate/" target="_blank">Hashim</a><br>
+    <a href="mailto:hashiimtahir@gmail.com" target="_blank">hashiimtahir@gmail.com</a><br>
+    <a href="tel:+923075239903" target="_blank">Call Me</a>
+    <ol type="i" start="5">
+        <li>Apple</li>
+        <li>Grapes</li>
+        <li>Strawberry</li>
+    </ol>
+    <ul type="square">
+        <li>Apple</li>
+        <li>Grapes</li>
+        <li>Strawberry</li>
+    </ul>
+    <dl>
+        <dt>HTML Stand For</dt>
+        <dd>
+            HyperText Markup Language
+        </dd>
+    </dl></body></html>\r\n\r\n"""
+            clientsocket.sendall(data.encode())
+            clientsocket.shutdown(SHUT_WR)
+    except KeyboardInterrupt :
+        print("\nShutting down...\n");
+    except Exception as exc :
+        print("Error:\n");
+        print(exc)
+    serversocket.close()
+print('Access http://localhost:9000')
+createServer()
+```
+Run this code and see how the web server response in a client request
+
+### Now lets send back data  too Client 
+```
+import socket
+
+mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+mysock.connect(('127.0.0.1', 9000))
+cmd = 'GET http://127.0.0.1/romeo.txt HTTP/1.0\r\n\r\n'.encode()
+mysock.send(cmd)
+
+while True:
+    data = mysock.recv(512)
+    if len(data) < 1:
+        break
+    print(data.decode(),end='')
+print("response")
+mysock.close()
+```
 ### Command to check django installation folder
 ```
 pip show django
