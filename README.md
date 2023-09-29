@@ -239,7 +239,73 @@ This files is used to create tests
 ### views.py file
 This file contain all about business logic
 
-### Command to check django instllation folder
+### Before we deep dive in views and url route we first need to discuss http and http works
+What is HTTP? 
+HTTP (Hypertext Transfer Protocol) is a fundamental protocol of the World Wide Web (WWW) that defines how data is transmitted and exchanged between a client (usually a web browser) and a web server. HTTP is the protocol that powers the web, and it's responsible for the retrieval and display of web pages, as well as the exchange of various web resources like text, images, videos, and more. Here are the steps involved in how HTTP works:
+1. Client Request: The process begins when a user opens a web browser and enters a URL (Uniform Resource Locator) into the address bar. The URL specifies the web page or resource they want to access. For example, the URL might be something like.
+2. DNS Resolution: If the URL contains a domain name (e.g., www.example.com), the browser needs to resolve this domain name to an IP address using the Domain Name System (DNS). DNS is a distributed system that maps human-readable domain names to IP addresses. Once the IP address is obtained, the browser can contact the web server.
+3. Establishing a TCP Connection: HTTP typically runs over TCP (Transmission Control Protocol). The browser initiates a TCP connection to the web server on the specified port (usually port 80 for HTTP and port 443 for HTTPS). This is the beginning of a communication channel between the client (browser) and the server.
+4. HTTP Request: The client (browser) sends an HTTP request to the web server. The request consists of:
+- A request method (e.g., GET, POST, PUT, DELETE) that indicates the desired action.
+- The requested resource's path (e.g., /index.html).
+- Headers containing additional information about the request (e.g., user-agent, accepted content types).
+- Optionally, a message body (used in POST and PUT requests to send data to the server).
+5. Server Processing: The web server receives the HTTP request, processes it, and determines how to respond. It locates the requested resource (e.g., the HTML file) on its filesystem or generates dynamic content through server-side scripting (e.g., PHP, Python, Ruby).
+6. HTTP Response: The server constructs an HTTP response containing:
+- A status code (e.g., 200 for success, 404 for not found, 500 for server error).
+- Response headers (e.g., content-type, date, server).
+- The response body, which contains the actual content (e.g., HTML, images, JSON data).
+7. Sending the Response: The server sends the HTTP response back to the client through the established TCP connection.
+8. Client Rendering: The client (browser) receives the response and processes it. If the response is an HTML file, the browser renders it, which includes parsing HTML, applying CSS styles, and executing JavaScript code.
+9. Additional Requests: If the HTML file references additional resources (e.g., CSS, JavaScript, images), the browser issues additional HTTP requests to fetch those resources. This can lead to a series of requests and responses to fully render a web page.
+10. Closing the Connection: Once all resources are fetched, or if the client or server decides to close the connection, the TCP connection is closed, freeing up network resources.
+
+### Now lets look a practical example 
+look the http url 
+```
+https://data.pr4e.org/page1.htm
+```
+Now we want to explore request headers, response headers, and body
+
+### python provides built in socket lets write a script and explore all the above things run this script.
+```
+import socket
+
+# Server information
+server_host = 'data.pr4e.org'
+server_port = 80  # HTTP typically uses port 80
+
+# Create a socket object
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+
+try:
+    # Connect to the server
+    client_socket.connect((server_host, server_port))
+    print(f"Connected to {server_host}:{server_port}")
+
+    # Send an HTTP GET request
+    request = "GET /page1.htm HTTP/1.0\r\n\r\n"
+    client_socket.sendall(request.encode())
+
+    # Receive and print data from the server in a loop
+    while True:
+        data = client_socket.recv(1024)
+        if not data:
+            break
+        print(data.decode(), end='')
+
+except Exception as e:
+    print(f"Error: {e}")
+
+finally:
+    # Close the socket
+    client_socket.close()
+    print("\nSocket closed")
+
+```
+After running the script you should everything 
+
+### Command to check django installation folder
 ```
 pip show django
 ```
