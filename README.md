@@ -239,7 +239,7 @@ This files is used to create tests
 ### views.py file
 This file contain all about business logic
 
-### Before we deep dive in views and url route we first need to discuss http and http works
+### Before we deep dive in views and url route we first need to discuss http and how http works
 What is HTTP? 
 HTTP (Hypertext Transfer Protocol) is a fundamental protocol of the World Wide Web (WWW) that defines how data is transmitted and exchanged between a client (usually a web browser) and a web server. HTTP is the protocol that powers the web, and it's responsible for the retrieval and display of web pages, as well as the exchange of various web resources like text, images, videos, and more. Here are the steps involved in how HTTP works:
 1. Client Request: The process begins when a user opens a web browser and enters a URL (Uniform Resource Locator) into the address bar. The URL specifies the web page or resource they want to access. For example, the URL might be something like.
