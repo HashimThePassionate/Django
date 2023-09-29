@@ -273,7 +273,7 @@ import socket
 
 # Server information
 server_host = 'data.pr4e.org'
-server_port = 80  # HTTP typically uses port 80
+server_port = 443 # HTTPS typically uses port 443
 
 # Create a socket object
 client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
