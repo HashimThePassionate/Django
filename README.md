@@ -267,7 +267,7 @@ https://data.pr4e.org/page1.htm
 ```
 Now we want to explore request headers, response headers, and body
 
-### python provides built in socket lets write a script and explore all the above things run this script.
+### python provides built in socket lets write a script and explore all the above things run this script building a simple web browser.
 ```
 import socket
 
