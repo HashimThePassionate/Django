@@ -252,7 +252,8 @@ python manage.py startapp Apple
 pip freeze > requirements.txt
 ```
 ### We Assume that you created a Web Application now its time to upload to github
-1. Clone your github repository
+1. Create a github repository finally clone it
+2. Clone your github repository
 ```
 git clone https://github.com/HashimThePassionate/example.git
 cd example
@@ -268,7 +269,6 @@ Congratulations your code has been pushed
 
 ### Assume you are using linix and want to use same django project which is already upload on github 
 Follow these steps
-- Create a github repository finally clone it
 ```
 git clone https://github.com/HashimThePassionate/example.git
 cd example
