@@ -267,7 +267,7 @@ git push origin main
 ```
 Congratulations your code has been pushed
 
-### Assume you are using linix and want to use same django project which is already upload on github 
+### Assume you are using linux and want to use same django project which is already upload on github 
 Follow these steps
 ```
 git clone https://github.com/HashimThePassionate/example.git
