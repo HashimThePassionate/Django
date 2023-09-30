@@ -268,6 +268,7 @@ Congratulations your code has been pushed
 
 ### Assume you are using linix and want to use same django project which is already upload on github 
 Follow these steps
+- Create a github repository finally clone it
 ```
 git clone https://github.com/HashimThePassionate/example.git
 cd example
