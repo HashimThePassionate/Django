@@ -239,6 +239,46 @@ This files is used to create tests
 ### views.py file
 This file contain all about business logic
 
+### Now We need to install django in virtual Environment with requirements.txt to control version control
+- Follow these steps
+```
+pip install virtualenvwrapper-win
+mkvirtualenv V
+workon V
+pip install Django
+django-admin startproject MyProject
+cd MyProject
+python manage.py startapp Apple
+pip freeze > requirements.txt
+```
+### We Assume that you created a Web Application now its time to upload to github
+1. Clone your github repository
+```
+git clone https://github.com/HashimThePassionate/example.git
+cd example
+```
+2. Copy project file to example directory
+3. finally push everything
+```
+git add .
+git commit -m "initial"
+git push origin main
+```
+Congratulations your code has been pushed
+
+### Assume you are using linix and want to use same django project which is already upload on github 
+Follow these steps
+```
+git clone https://github.com/HashimThePassionate/example.git
+cd example
+cd djangoProject
+pip install virtualenvwrapper-win
+mkvirtualenv myenv
+workon myenv
+pip install -r requirements.txt
+```
+All the requirements packages will install atomatically
+
 ### Before we deep dive in views and url route we first need to discuss http and how http works
 What is HTTP? 
 HTTP (Hypertext Transfer Protocol) is a fundamental protocol of the World Wide Web (WWW) that defines how data is transmitted and exchanged between a client (usually a web browser) and a web server. HTTP is the protocol that powers the web, and it's responsible for the retrieval and display of web pages, as well as the exchange of various web resources like text, images, videos, and more. Here are the steps involved in how HTTP works:
