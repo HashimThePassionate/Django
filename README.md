@@ -252,7 +252,7 @@ python manage.py startapp Apple
 pip freeze > requirements.txt
 ```
 ### We Assume that you created a Web Application now its time to upload to github
-1. Create a github repository finally clone it
+1. Create a github repository
 2. Clone your github repository
 ```
 git clone https://github.com/HashimThePassionate/example.git
