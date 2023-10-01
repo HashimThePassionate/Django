@@ -420,16 +420,66 @@ mysock.close()
 pip show django
 ```
 ### Write your first view
-open your views 
+open your app  views.py file and paste the view as a function
 ```
-polls/views.py¶
 from django.http import HttpResponse
-
 def index(request):
-    return HttpResponse("Hello, world. You're at the polls index.")
+    return HttpResponse("<h3>Hello This is our first App just for Practice </h3>")
 ```
-1. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
-2. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
+
+### Urls PAttern in Project level urls.py
+1. Simple open your project  level urls.py file and find urlpatterns list variable and mention your view in path variable, make sure to import views from your app
+```
+from django.contrib import admin
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('home/',views.index),
+]
+```
+
+### now run your server with simple this code
+```
+python manage.py runserver
+```
+1. Now here is the point, when you run the server you will see error like 
+<!-- 
+Page not found (404)
+Request Method:	GET
+Request URL:	http://127.0.0.1:8000/
+Using the URLconf defined in Alfa.urls, Django tried these URL patterns, in this order:
+admin/
+home/
+The empty path didn’t match any of these.
+You’re seeing this error because you have DEBUG = True in your Django settings file. Change that to False, and Django will display a standard 404 page.
+ -->
+2. This error tells that you url is not found to fix this paste this url 
+```
+http://127.0.0.1:8000/home/
+```
+3. Now when you look the url pattern you, will see i mention /home/ after the url bcz when i define the url i clearly mention 'home/' in  urlpatterns variable so to access this we must mention this url
+<!-- http://127.0.0.1:8000/home/ -->
+4. Now we need to define a default url pattern than what we do, here is the example go to urls.py and paste this code
+```
+from django.contrib import admin
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',views.index),
+]
+```
+5. Now when you run the server you will see the url is working default.
+
+### Urls Patterns inside  in Application  urls.py
+1. Simply create view in views.py in app level
+```
+from django.http import HttpResponse
+def index(request):
+    return HttpResponse("<h3>Hello This is our first App just for Practice </h3>")
+```
+2. now create urls.py in app level directory. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
 <!-- 
 App/
     __init__.py
@@ -442,24 +492,30 @@ App/
     urls.py
     views.py
  -->
+3. open urls.py and paste this code
+1. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
 ### In the App/urls.py file include the following code:
 ```
 from django.urls import path
-from . import views
+from SimpleApp import views
 urlpatterns = [
-    path("",views.myview, name="myView"),
+    path("",views.index, name="home"),
 ]
 ```
 ### The next step is to point the root URLconf at the project.urls module.
 1. In project/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list, so you have:
 ```
 from django.contrib import admin
-from django.urls import include, path
-
+from django.urls import path, include
 urlpatterns = [
-    path("polls/", include("polls.urls")),
-    path("admin/", admin.site.urls),
+    path('admin/', admin.site.urls),
+    path('home/',include('SimpleApp.urls')),
 ]
 ```
+### Template 
+1. A Template is a text file, it can generate any text-based format (HTML, CSV, XML etc)
+2. A template contains variables, which get replaced with values when the template is evaluated, and tages, which control the logic of template.
+3. Template is used by view function to represent the data to user.
+4. User sends request to view then view contact template after that view get information from the template and then view gives response to user.
 
 #### Regards Muhammad Hashim
