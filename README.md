@@ -518,7 +518,8 @@ urlpatterns = [
 3. Template is used by view function to represent the data to user.
 4. User sends request to view then view contact template after that view get information from the template and then view gives response to user.
 
-### Templates folder in project level
+### Create Templates folder inside root directory
+1. Simply create "templates" directory inside project folder 
 <pre>
 projectname/
 ├── projectname/
@@ -542,6 +543,94 @@ projectname/
     ├── models.py
     ├── tests.py
     └── views.py
+</pre>
+
+### Simply create home.html file inside templates directory
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="05"> -->
+    <title>Div </title>
+</head>
+<body>
+    <article>
+        <h2>Google Chrome</h2>
+        <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
+    </article>
+    <details>
+        <summary>Epcot Center</summary>
+        <p>Hi,{{name}} How are you? Your age is {{age}}</p>
+    </details>
+    <p>I have a date on <time datetime="2008-02-14 20:00">Valentines day</time>.</p>
+</body>
+</html>
+```
+### Add "TEMPLATE_DIR" in settings.py 
+```
+TEMPLATE_DIR = os.path.join(BASE_DIR,'templates')
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [TEMPLATE_DIR],//Add TEMPLATE_DIR here
+        'APP_DIRS': True,
+        'OPTIONS': {
+            'context_processors': [
+                'django.template.context_processors.debug',
+                'django.template.context_processors.request',
+                'django.contrib.auth.context_processors.auth',
+                'django.contrib.messages.context_processors.messages',
+            ],
+        },
+    },
+]
+```
+### What is render() function 
+1. When you call render(), it combines the provided template with a context dictionary (containing data to be inserted into the template) and generates an HTML response.
+- render()- It combines a given template with a given context dictionary and returns an Httpresponse object with that rendered text.
+<pre>
+Syntax:
+    render(request,template_name, context = dict_name, using = None)
+Where,
+request -- The object used to generate this response.
+template_name -- The full name of a template to use or sequence of templates names, if a sequence is given, the first template thats exists will be used.
+context -- A dictionary of values to add to the template context. By default, this is an empty dictionary. if a value in the dictionary is callable, the view will call just before rendering the template.
+using -- The NAME of a template engine to use for  loading the template.
+</pre>
+### Define views to render html
+```
+def home(request):
+    name = "Muhammad Hashim"
+    age = 23
+    d = {'name':name, 'age':age}
+    return render(request, 'index.html', d)
+```
+### define urlpattern in app level urls.py
+```
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path("",views.home, name="home"),
+]
+```
+### finally add url to root project urls.py
+```
+from django.contrib import admin
+from django.urls import path, include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('home/',include('SimpleApp.urls')),
+]
+```
+### Now its time to render html
+```
+python manage.py runserver
+```
+- Here is how to access home page
+<pre>
+http://127.0.0.1:8000/home/
 </pre>
 
 #### Regards Muhammad Hashim
