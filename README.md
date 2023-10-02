@@ -109,6 +109,7 @@ django-admin startproject projectname
 ```
 ### After Creating Project projectname we see these levels
 <hr>
+<pre>
 projectname
     |____ projectname
     |        |___ __init__.py   
@@ -117,6 +118,7 @@ projectname
     |        |___ urls.py
     |        |___ wsgi.py
     |____ manage.py 
+</pre>
 <hr>
 ### __init__.py file
 This folder which contains __init__ file is considered as python package.
@@ -207,6 +209,7 @@ INSTALLED_APPS [
 
 ### Application Directory Structure 
 <hr>
+<pre>
 course 
     migrations
         __init__.py
@@ -216,6 +219,7 @@ course
     models.py
     tests.py
     views.py
+<pre>
 <hr>
 
 ### migrations 
@@ -481,6 +485,7 @@ def index(request):
 ```
 2. now create urls.py in app level directory. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
 <hr>
+<pre>
 App/
     __init__.py
     admin.py
@@ -491,6 +496,7 @@ App/
     tests.py
     urls.py
     views.py
+</pre>
 <hr>
 3. open urls.py and paste this code
 4. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
