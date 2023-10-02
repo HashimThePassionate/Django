@@ -108,7 +108,6 @@ rmvirtualenv myenv
 django-admin startproject projectname
 ```
 ### After Creating Project projectname we see these levels
-<hr>
 <pre>
 projectname
     |____ projectname
@@ -119,7 +118,7 @@ projectname
     |        |___ wsgi.py
     |____ manage.py 
 </pre>
-<hr>
+
 ### __init__.py file
 This folder which contains __init__ file is considered as python package.
 
@@ -208,7 +207,6 @@ INSTALLED_APPS [
 ```
 
 ### Application Directory Structure 
-<hr>
 <pre>
 course 
     migrations
@@ -219,8 +217,7 @@ course
     models.py
     tests.py
     views.py
-<pre>
-<hr>
+</pre>
 
 ### migrations 
 This folder contains __init__ file to convert folder to package, and it also contains all flies which are created when running makemigration commands.
@@ -405,7 +402,6 @@ Run this code and see how the web server response in a client request
 ### Now lets send back data  too Client 
 ```
 import socket
-
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 mysock.connect(('127.0.0.1', 9000))
 cmd = 'GET http://127.0.0.1/romeo.txt HTTP/1.0\r\n\r\n'.encode()
@@ -484,7 +480,6 @@ def index(request):
     return HttpResponse("<h3>Hello This is our first App just for Practice </h3>")
 ```
 2. now create urls.py in app level directory. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
-<hr>
 <pre>
 App/
     __init__.py
@@ -497,7 +492,6 @@ App/
     urls.py
     views.py
 </pre>
-<hr>
 3. open urls.py and paste this code
 4. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
 ### In the App/urls.py file include the following code:
