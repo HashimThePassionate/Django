@@ -108,7 +108,7 @@ rmvirtualenv myenv
 django-admin startproject projectname
 ```
 ### After Creating Project projectname we see these levels
-<!-- 
+<hr>
 projectname
     |____ projectname
     |        |___ __init__.py   
@@ -117,7 +117,7 @@ projectname
     |        |___ urls.py
     |        |___ wsgi.py
     |____ manage.py 
--->
+<hr>
 ### __init__.py file
 This folder which contains __init__ file is considered as python package.
 
@@ -206,7 +206,7 @@ INSTALLED_APPS [
 ```
 
 ### Application Directory Structure 
-<!-- 
+<hr>
 course 
     migrations
         __init__.py
@@ -216,7 +216,7 @@ course
     models.py
     tests.py
     views.py
- -->
+<hr>
 
 ### migrations 
 This folder contains __init__ file to convert folder to package, and it also contains all flies which are created when running makemigration commands.
@@ -444,7 +444,7 @@ urlpatterns = [
 python manage.py runserver
 ```
 1. Now here is the point, when you run the server you will see error like 
-<!-- 
+<hr>
 Page not found (404)
 Request Method:	GET
 Request URL:	http://127.0.0.1:8000/
@@ -453,13 +453,13 @@ admin/
 home/
 The empty path didn’t match any of these.
 You’re seeing this error because you have DEBUG = True in your Django settings file. Change that to False, and Django will display a standard 404 page.
- -->
+<hr>
 2. This error tells that you url is not found to fix this paste this url 
 ```
 http://127.0.0.1:8000/home/
 ```
 3. Now when you look the url pattern you, will see i mention /home/ after the url bcz when i define the url i clearly mention 'home/' in  urlpatterns variable so to access this we must mention this url
-<!-- http://127.0.0.1:8000/home/ -->
+http://127.0.0.1:8000/home/
 4. Now we need to define a default url pattern than what we do, here is the example go to urls.py and paste this code
 ```
 from django.contrib import admin
@@ -480,7 +480,7 @@ def index(request):
     return HttpResponse("<h3>Hello This is our first App just for Practice </h3>")
 ```
 2. now create urls.py in app level directory. To create a URLconf in the App directory, create a file called urls.py. Your app directory should now look like.
-<!-- 
+<hr>
 App/
     __init__.py
     admin.py
@@ -491,9 +491,9 @@ App/
     tests.py
     urls.py
     views.py
- -->
+<hr>
 3. open urls.py and paste this code
-1. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
+4. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
 ### In the App/urls.py file include the following code:
 ```
 from django.urls import path
@@ -517,5 +517,7 @@ urlpatterns = [
 2. A template contains variables, which get replaced with values when the template is evaluated, and tages, which control the logic of template.
 3. Template is used by view function to represent the data to user.
 4. User sends request to view then view contact template after that view get information from the template and then view gives response to user.
+
+### Templates folder in project level
 
 #### Regards Muhammad Hashim
