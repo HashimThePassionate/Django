@@ -519,5 +519,29 @@ urlpatterns = [
 4. User sends request to view then view contact template after that view get information from the template and then view gives response to user.
 
 ### Templates folder in project level
+<pre>
+projectname/
+├── projectname/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+|   |__ templates
+|      |___ home.html
+|      |___ about.html
+|      |___ contact.html
+|      |___ blog.html
+├── manage.py
+└── myapp/
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations/
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+</pre>
 
 #### Regards Muhammad Hashim
