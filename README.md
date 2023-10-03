@@ -150,7 +150,8 @@ On windows
 ```
 crtl + c
 ```
-### Setup Database in Django 
+### Setup MYSQL Database in Django 
+Make Sure to download MySQL Server, MySQL Workbench
 1. To connect a MySQL database server to your Django project, you need to configure the database settings in your project's.
 2. settings.py file. Additionally, you'll want to make sure you have the MySQL Python connector (usually referred to as mysqlclient)
 3. Install the MySQLClient run the following command
@@ -178,6 +179,33 @@ After configuring the database settings, you'll need to apply migrations to crea
 python manage.py makemigrations
 python manage.py migrate
 ```
+### Setup PostgreSQL Database in Django 
+1. Download postgresql from https://www.enterprisedb.com/downloads/postgres-postgresql-downloads
+2. Install Postgresql and pgadmin create password
+3. After installing open pgAdmin4 under servers find PostgreSQL 16, write click to connect server write down password and click ok to connect postgreSQL Server.
+4. right click to database and click on query tool, SQL command interface will be open simple create your database using this query
+```
+CREATE DATABASE employee;
+```
+4. its times to install psycopg2 library to connect python with postgreSQL environment.
+5. if you are using virtual environment simply activate it and install this library.
+```
+pip install psycopg2
+```
+6. Now its time to setup database, simply open your settings.py file in project level and paste this code in DATABASE portion.
+```
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'Employee',    # Replace with your database name
+        'USER': 'postgres',    # Replace with your database user
+        'PASSWORD': 'root',    # Replace with your database password
+        'HOST': 'localhost',   # Replace with your database host ('localhost')
+        'PORT': '2000',        # Replace with your database port 
+    }
+}
+```
+- Congratulations your postgreSQL database has been sucessfully connected
 
 ### How to Create and Start Application
 A Django project contain one or more applications inside project.
@@ -427,7 +455,7 @@ def index(request):
     return HttpResponse("<h3>Hello This is our first App just for Practice </h3>")
 ```
 
-### Urls PAttern in Project level urls.py
+### Urls Pattern in Project level urls.py
 1. Simple open your project  level urls.py file and find urlpatterns list variable and mention your view in path variable, make sure to import views from your app
 ```
 from django.contrib import admin
@@ -444,7 +472,7 @@ urlpatterns = [
 python manage.py runserver
 ```
 1. Now here is the point, when you run the server you will see error like 
-<hr>
+<pre>
 Page not found (404)
 Request Method:	GET
 Request URL:	http://127.0.0.1:8000/
@@ -453,7 +481,7 @@ admin/
 home/
 The empty path didn’t match any of these.
 You’re seeing this error because you have DEBUG = True in your Django settings file. Change that to False, and Django will display a standard 404 page.
-<hr>
+</pre>
 2. This error tells that you url is not found to fix this paste this url 
 ```
 http://127.0.0.1:8000/home/
