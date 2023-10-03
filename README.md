@@ -661,4 +661,81 @@ python manage.py runserver
 http://127.0.0.1:8000/home/
 </pre>
 
+### Create Templates folder inside Application
+1. Create templates directory inside application and inside templates create another directory with same application name and inside it create html files, the result should be link this.
+<pre>
+projectname/
+├── projectname/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+├── manage.py
+└── myapp/
+    |__ templates
+    |  |___ home.html
+    |  |___ about.html
+    |  |___ contact.html
+    |  |___ blog.html
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations/
+    │   |__ __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py
+</pre>
+
+### Define views
+```
+from django.shortcuts import render
+def home(request):
+    name = "Muhammad Hashim"
+    age = 23
+    d = {'name':name, 'age':age}
+    return render(request, 'SimpleApp/index.html', d)
+```
+
+### Define urls in Application level
+```
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path("",views.home),
+]
+```
+### Define urls in Project level
+```
+from django.contrib import admin
+from django.urls import path, include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('home/',include('SimpleApp.urls')),
+]
+```
+### Create html document inside application  templates / folder / index.html
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="05"> -->
+    <title>Div </title>
+</head>
+<body>
+    <article>
+        <h2>Google Chrome</h2>
+        <p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
+    </article>
+    <details>
+        <summary>Epcot Center</summary>
+        <p>Hi,{{name}} How are you? Your age is {{age}}</p>
+    </details>
+    <p>I have a date on <time datetime="2008-02-14 20:00">Valentines day</time>.</p>
+</body>
+</html>
+```
 #### Regards Muhammad Hashim
