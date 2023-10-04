@@ -761,12 +761,17 @@ Syntax:
 - floatformat
 - length
 - linenumbers
+- escape
 
 1. defines a view
 ```
 from django.shortcuts import render
 from django.http import HttpResponse 
 from datetime import datetime
+multiString ="""One
+two
+three
+four"""
 def home(request):
     name = "muhammad Hashim"
     age = 20
@@ -774,11 +779,14 @@ def home(request):
     list2 = [4,5,6]
     django = "I'm using django"
     dj = "Django"
+    nick = "MUHAMMAD"
     D = datetime.now()
     value = 123456789
     f = 34.23234
+    messages = 1
+    welcome = "&quotWelcome&quot to &#x27;&ltDjango&gt;&#x27; Programming"
     list3 = [  {"name": "Zahid", "age": 19},{"name": "Ahmed", "age": 22},{"name": "Jamshed", "age": 31},]
-    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f}
+    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f, "m":multiString, 'nick':nick, 'messages': messages , 'w':welcome}
     return render(request, 'SimpleApp/index.html', d)
 ```
 2. urls.py in application level
@@ -815,8 +823,10 @@ urlpatterns = [
 </section>
 <p>Hi,{{name|capfirst}} How are you? Your age is {{age|add:"3"}}</p>
 <pre>
-First list :{{list1}} 
-Second list : {{list2}} 
+First list :{{list1}}
+
+Second list : {{list2}}
+
 The Sum of two list is {{list1|add:list2}}
 </pre>
 <p>{{django|addslashes}}</p>
@@ -825,6 +835,7 @@ The Sum of two list is {{list1|add:list2}}
 <pre>
 Without sorted List:
 {{list3}} 
+
 With sorted list:
 {{list3|dictsort:"name"}}
 </pre>
@@ -834,8 +845,99 @@ With sorted list:
 <p>The value {{f}}</p>
 <p>The value {{f|floatformat}}</p>
 <p>The value {{f|floatformat:"3"}}</p>
+<p>My name {{name|capfirst}} contains {{name|length}} letters</p>
+<pre>
+{{m}}
+
+{{m|linenumbers}}
+</pre>
+<pre>
+Name in Captial letter : {{nick}}
+
+Name in lower letter : {{nick|lower}}
+</pre>
+<p>Rendered text date: "{{D|date:"l" }}"</p>
+{% comment "Optional note" %}
+    <p>Commented out text with {{ create_date|date:"c" }}</p>
+{% endcomment %}
+</pre>
+<span style="font-size:30px;">Django Templates tags</span>
+<pre>{% autoescape off %}
+{{w}}
+{{w|escape}}
+{% endautoescape %}</pre>
 </body>
 </html>
 ```
 - #### Note: if you want to  learn more about it please visit https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#built-in-filter-reference
+
+### Built-in template tags
+1.  comment
+2.  if tag
+- The {% if %} tag evaluates a variable, and if that variable is “true” (i.e. exists, is not empty, and is not a false boolean value) the contents of the block are output:
+3. 
+
+1. defines a view
+```
+from django.shortcuts import render
+from django.http import HttpResponse 
+from datetime import datetime
+multiString ="""One
+two
+three
+four"""
+def home(request):
+    name = "muhammad Hashim"
+    age = 20
+    list1 = [1,2,3]
+    list2 = [4,5,6]
+    django = "I'm using django"
+    dj = "Django"
+    nick = "MUHAMMAD"
+    D = datetime.now()
+    value = 123456789
+    f = 34.23234
+    messages = 1
+    welcome = "&quotWelcome&quot to &#x27;&ltDjango&gt;&#x27; Programming"
+    list3 = [  {"name": "Zahid", "age": 19},{"name": "Ahmed", "age": 22},{"name": "Jamshed", "age": 31},]
+    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f, "m":multiString, 'nick':nick, 'messages': messages , 'w':welcome}
+    return render(request, 'SimpleApp/index.html', d)
+```
+2. urls.py in application level
+```
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path("",views.home),
+]
+```
+3. urls.py in project level
+```
+from django.contrib import admin
+from django.urls import path, include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('SimpleApp.urls')),
+]
+```
+4. rendering document
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="05"> -->
+    <title>Built-in Filters</title>
+</head>
+<body>
+<p>Rendered text date: "{{D|date:"l" }}"</p>
+{% comment "Optional note" %}
+    <p>Commented out text with {{ create_date|date:"c" }}</p>
+{% endcomment %}
+</pre>
+</body>
+</html>
+```
+
 #### Regards Muhammad Hashim
