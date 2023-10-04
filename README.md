@@ -546,7 +546,7 @@ urlpatterns = [
 3. Template is used by view function to represent the data to user.
 4. User sends request to view then view contact template after that view get information from the template and then view gives response to user.
 
-### Create Templates folder inside root directory
+### Create dynamic templates folder inside root directory
 1. Simply create "templates" directory inside project folder 
 <pre>
 projectname/
@@ -573,7 +573,7 @@ projectname/
     └── views.py
 </pre>
 
-### Simply create home.html file inside templates directory
+### Simply create home.html file inside templates directory 
 ```
 <!DOCTYPE html>
 <html lang="en">
@@ -661,7 +661,7 @@ python manage.py runserver
 http://127.0.0.1:8000/home/
 </pre>
 
-### Create Templates folder inside Application
+### Create dynamic templates folder inside Application
 1. Create templates directory inside application and inside templates create another directory with same application name and inside it create html files, the result should be link this.
 <pre>
 projectname/
@@ -734,8 +734,106 @@ urlpatterns = [
         <summary>Epcot Center</summary>
         <p>Hi,{{name}} How are you? Your age is {{age}}</p>
     </details>
-    <p>I have a date on <time datetime="2008-02-14 20:00">Valentines day</time>.</p>
+    <p>This is just a simple paragraph</p>
 </body>
 </html>
 ```
+
+### Lets explore Django built in filters
+1. When we need to modify variable before displaying we can use filters. Pipe symbol | is used to apply filter.
+<pre>
+Syntax:
+      {{variable | filter}}
+Some filters takes arguments
+Syntax:
+      {{variable | filter : argument}}
+</pre>
+
+### filters Example
+#### Filters list
+- add
+- addslashes
+- capfirst
+- date
+- dictsort
+- filesizeformat
+- first
+- floatformat
+
+1. defines a view
+```
+from django.shortcuts import render
+from django.http import HttpResponse 
+from datetime import datetime
+def home(request):
+    name = "muhammad Hashim"
+    age = 20
+    list1 = [1,2,3]
+    list2 = [4,5,6]
+    django = "I'm using django"
+    dj = "Django"
+    D = datetime.now()
+    value = 123456789
+    f = 34.23234
+    list3 = [  {"name": "Zahid", "age": 19},{"name": "Ahmed", "age": 22},{"name": "Jamshed", "age": 31},]
+    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f}
+    return render(request, 'SimpleApp/index.html', d)
+```
+2. urls.py in application level
+```
+from django.urls import path
+from SimpleApp import views
+urlpatterns = [
+    path("",views.home),
+]
+```
+3. urls.py in project level
+```
+from django.contrib import admin
+from django.urls import path, include
+urlpatterns = [
+    path('admin/', admin.site.urls),
+    path('',include('SimpleApp.urls')),
+]
+```
+4. rendering document
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- <meta http-equiv="refresh" content="05"> -->
+    <title>Built-in Filters</title>
+</head>
+<body>
+<section>
+<h2>Google Chrome</h2>
+<p>Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most popular web browser today!</p>
+</section>
+<p>Hi,{{name|capfirst}} How are you? Your age is {{age|add:"3"}}</p>
+<pre>
+First list :{{list1}} 
+Second list : {{list2}} 
+The Sum of two list is {{list1|add:list2}}
+</pre>
+<p>{{django|addslashes}}</p>
+<p>"{{dj|center:"15"}}"</p>
+<p>{{D|date:"j s l n M Y"}}</p>
+<pre>
+Without sorted List:
+{{list3}} 
+With sorted list:
+{{list3|dictsort:"name"}}
+</pre>
+<p>This is just a simple paragraph</p>
+<p>if value is {{value}} than the output will be {{value|filesizeformat}} </p>
+<p>The {{list1}} list first item is {{list1|first}}</p>
+<p>The value {{f}}</p>
+<p>The value {{f|floatformat}}</p>
+<p>The value {{f|floatformat:"3"}}</p>
+</body>
+</html>
+```
+- #### Note: if you want to  learn more about it please visit https://docs.djangoproject.com/en/4.2/ref/templates/builtins/#built-in-filter-reference
 #### Regards Muhammad Hashim
