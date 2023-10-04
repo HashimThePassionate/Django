@@ -759,6 +759,8 @@ Syntax:
 - filesizeformat
 - first
 - floatformat
+- length
+- linenumbers
 
 1. defines a view
 ```
