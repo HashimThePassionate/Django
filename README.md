@@ -874,10 +874,73 @@ Name in lower letter : {{nick|lower}}
 ### Built-in template tags
 1.  comment
 2.  if tag
-- The {% if %} tag evaluates a variable, and if that variable is “true” (i.e. exists, is not empty, and is not a false boolean value) the contents of the block are output:
-3. 
+- if tags with boolean operators
+- - and, or, not
+- - == operator
+- - in operator
+- - if tag with filter
+3. lorem
+<pre>
+Displays random “lorem ipsum” Latin text. This is useful for providing sample data in templates.
 
-1. defines a view
+Usage:
+{% lorem [count] [method] [random] %}
+The {% lorem %} tag can be used with zero, one, two or three arguments. The arguments are:
+Argument	Description
+count	A number (or variable) containing the number of paragraphs or words to generate (default is 1).
+method	Either w for words, p for HTML paragraphs or b for plain-text paragraph blocks (default is b).
+random	The word random, which if given, does not use the common paragraph (“Lorem ipsum dolor sit amet…”) when generating text.
+Examples:
+{% lorem %} will output the common “lorem ipsum” paragraph.
+{% lorem 3 p %} will output the common “lorem ipsum” paragraph and two random paragraphs each wrapped in HTML <p> tags.
+{% lorem 2 w random %} will output two random Latin words.
+</pre>
+4. now
+```
+It is {% now "jS F Y H:i" %}
+```
+- The {% if %} tag evaluates a variable, and if that variable is “true” (i.e. exists, is not empty, and is not a false boolean value) the contents of the block are output:
+5. For tag
+- Syntax
+<pre>
+{% for itemvariable in variable %}
+{{itemvariable}}
+{% endfor %}
+Example:
+<ul>
+{% for itemvariable in variable %}
+<li>{{itemvariable}}</li>
+{% endfor %}
+</ul>
+</pre>
+5. regroup
+- regroup¶
+Regroups a list of alike objects by a common attribute.
+- This complex tag is best illustrated by way of an example: say that cities is a list of cities represented by dictionaries containing "name", "population", and "country" keys
+<pre>
+cities = [
+    {"name": "Mumbai", "population": "19,000,000", "country": "India"},
+    {"name": "Calcutta", "population": "15,000,000", "country": "India"},
+    {"name": "New York", "population": "20,000,000", "country": "USA"},
+    {"name": "Chicago", "population": "7,000,000", "country": "USA"},
+    {"name": "Tokyo", "population": "33,000,000", "country": "Japan"},
+]
+and you’d like to display a hierarchical list that is ordered by country, like this:
+. India
+  . Mumbai: 19,000,000
+  . Calcutta: 15,000,000
+. USA
+  . New York: 20,000,000
+  . Chicago: 7,000,000
+. Japan
+  . Tokyo: 33,000,000
+You can use the {% regroup %} tag to group the list of cities by country. The following snippet of template code would accomplish this:
+</pre>
+6. cycle
+- Produces one of its arguments each time this tag is encountered. The first argument is produced on the first encounter, the second argument on the second encounter, and so forth. Once all arguments are exhausted, the tag cycles to the first argument and produces it again.
+
+
+1. Views
 ```
 from django.shortcuts import render
 from django.http import HttpResponse 
@@ -900,8 +963,33 @@ def home(request):
     messages = 1
     welcome = "&quotWelcome&quot to &#x27;&ltDjango&gt;&#x27; Programming"
     list3 = [  {"name": "Zahid", "age": 19},{"name": "Ahmed", "age": 22},{"name": "Jamshed", "age": 31},]
-    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f, "m":multiString, 'nick':nick, 'messages': messages , 'w':welcome}
-    return render(request, 'SimpleApp/index.html', d)
+    list4 = ["Hashim","Juniad","Usman","Zahid"]
+    cities = [
+    {"name": "Mumbai", "population": "19,000,000", "country": "India"},
+    {"name": "Calcutta", "population": "15,000,000", "country": "India"},
+    {"name": "New York", "population": "20,000,000", "country": "USA"},
+    {"name": "Chicago", "population": "7,000,000", "country": "USA"},
+    {"name": "Tokyo", "population": "33,000,000", "country": "Japan"}]
+    coach_list = [
+        {
+            'name': 'junaid',
+            'athletes': [
+                {'name': 'Hassan'},
+                {'name': 'Hamza'},
+                {'name': 'Zubair'},
+            ]
+        },
+        {
+            'name': 'Jamshed',
+            'athletes': [
+                {'name': 'Ehtisham'},
+                {'name': 'Ahsan'},
+                {'name': 'Zeeshan'},
+            ]
+        },
+    ]
+    d = {'name':name, 'age':age, 'list1':list1, 'list2':list2, 'django':django, 'dj':dj, 'D':D,'list3':list3,'value':value, 'f':f, "m":multiString, 'nick':nick, 'messages': messages , 'w':welcome, 'nl':list4, 'cities':cities,'c':coach_list}
+    return render(request, 'SimpleApp/index.html', d))
 ```
 2. urls.py in application level
 ```
@@ -936,6 +1024,86 @@ urlpatterns = [
     <p>Commented out text with {{ create_date|date:"c" }}</p>
 {% endcomment %}
 </pre>
+{% comment %} if Tag {% endcomment %}
+<pre>{% if name %}
+Number is: {{ name|capfirst }}
+{% endif %}
+</pre>
+<pre>{% if n %}Number is: {{ name|capfirst }}
+{% else %}no name available{% endif %}
+</pre>
+{% comment %} If tag with and operator {% endcomment %}
+<pre>
+{% if name and age  %}
+Your Name is {{name}} and Age is {{age}}
+{% else %}
+No name and age available
+{% endif %}
+</pre>
+{% comment %} if tag with == operator {% endcomment %}
+<pre>
+{% if age == 23 %}
+Your age is  {{age}}
+{% else %}
+try again
+{% endif %}
+</pre>
+{% comment %} if tag with == "string" {% endcomment %}
+<pre>
+{% if name == "muhammad Hashim" %}
+Your name is : {{name}}
+{% endif %}
+</pre>
+{% comment %} if tag with in operator {% endcomment %}
+<pre>
+{% if "Dj" in "Django" %}
+true it is present
+{% endif %}
+</pre>
+{% comment %} if tag with filter {% endcomment %}
+<pre>
+{% if name|length >= 14 %}
+You have lots of messages today!
+ {% endif %}
+</pre>
+{% comment %}  if tag with random text {% endcomment %}
+<p>
+{% lorem 50 w random %}
+</p>
+<p>
+    It is {% now "jS F Y H:i" %}
+</p>
+{% comment %} for loop {% endcomment %}
+{% for n in name %}
+<li>{{n}}</li>
+{% endfor %}
+{% comment %} regroup tag {% endcomment %}
+{% regroup cities by country as country_list %}
+<ul>
+{% for country in country_list %}
+    <li>{{ country.grouper }}
+    <ul>
+        {% for city in country.list %}
+          <li>{{ city.name }}: {{ city.population }}</li>
+        {% endfor %}
+    </ul>
+    </li>
+{% endfor %}
+</ul>
+{% comment %} cycle tag {% endcomment %}
+{% for o in list1 %}
+    <tr class="{% cycle 'row1' 'row2' %}">
+        ...
+    </tr>
+{% endfor %}
+{% comment %} resetcycle tag {% endcomment %}
+{% for coach in c %}
+    <h1>{{ coach.name }}</h1>
+    {% for athlete in coach.athletes%}
+        <p class="{% cycle 'odd' 'even' %}">{{ athlete.name }}</p>
+    {% endfor %}
+    {% resetcycle %}
+{% endfor %}
 </body>
 </html>
 ```
