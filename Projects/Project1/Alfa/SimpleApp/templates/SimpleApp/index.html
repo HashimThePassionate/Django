@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Home Page</title>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'> 
+    <link rel="shortcut icon" href='{% static "images/favicon.ico" %}' type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">My Website</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to My Website</h1>
+                <p>Your trusted source for amazing content.</p>
+                <a href="#" class="cta-button">Learn More</a>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo at magna dapibus tristique.</p>
+            </div>
+        </section>
+        <section class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service">
+                    <h3>Service 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 2</h3>
+                    <p>Nullam id justo at magna dapibus tristique.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 3</h3>
+                    <p>Phasellus gravida dolor in consectetur tincidunt.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 My Website. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>

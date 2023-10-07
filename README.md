@@ -1107,5 +1107,330 @@ You have lots of messages today!
 </body>
 </html>
 ```
+### Static Files
+1. CSS files, JavaScript files, images files, video files are considered static files in django.
+1. Django provides django.contrib.staticfiles to help you manage them.
+3. django.contrib.staticfiles collect static files from each of your applications 
+
+### Create static folder inside root project
+1. Create static directory inside root project 
+2. Inside static folder, create required folders which will contains all static files respectively like css folder, js folder and images folder etc
+
+### Here is how we created
+<pre>
+Alfa/
+├── Alfa/
+│   ├── __init__.py
+│   ├── asgi.py
+│   ├── settings.py
+│   ├── urls.py
+│   └── wsgi.py
+|   
+|   |__ static
+|      |___ images
+|          |___ favicon.io
+|          |___ horse.jpg
+|      |___ CSS
+|          |___ style.css
+|      |___ JS
+|          |___ script.js
+|
+|   |__ templates
+|      |___ index.html
+├── manage.py
+└── myapp/
+    ├── __init__.py
+    ├── admin.py
+    ├── apps.py
+    ├── migrations/
+    │   └── __init__.py
+    ├── models.py
+    ├── tests.py
+    └── views.py   
+</pre>
+
+### Add static in settings.py
+1. add the following code snipped in settings.py
+2. import os if not imported
+```
+import os
+STATIC_URL = 'static/'
+STATIC_DIR = os.path.join(BASE_DIR,'static')
+# print(STATIC_URL)
+# print(STATIC_DIR)
+STATICFILES_DIRS = [
+    STATIC_DIR
+]
+# print(STATICFILES_DIRS)
+```
+
+### Use static files in templates
+1. first load static files for serve
+2. Reference static files
+
+
+### This is our index.html file code
+```
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Home Page</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">My Website</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to My Website</h1>
+                <p>Your trusted source for amazing content.</p>
+                <a href="#" class="cta-button">Learn More</a>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo at magna dapibus tristique.</p>
+            </div>
+        </section>
+        <section class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service">
+                    <h3>Service 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 2</h3>
+                    <p>Nullam id justo at magna dapibus tristique.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 3</h3>
+                    <p>Phasellus gravida dolor in consectetur tincidunt.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 My Website. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+#### Note We suppose that views and urls are already define, so we can directly jump to our main topic
+
+### style.css 
+```
+/* Reset some default styles for consistency */
+body, h1, h2, p, ul, li {
+    margin: 0;
+    padding: 0;
+}
+
+/* Apply some global styles */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+/* Style the header */
+.header {
+    background-color: #333;
+    color: #fff;
+}
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 0;
+}
+
+.logo {
+    font-size: 24px;
+    text-decoration: none;
+    color: #fff;
+}
+
+.nav-links {
+    list-style: none;
+    display: flex;
+}
+
+.nav-links li {
+    margin-right: 20px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #fff;
+}
+
+/* Style the hero section */
+.hero {
+    background-image: url('hero-background.jpg');
+    background-size: cover;
+    text-align: center;
+    padding: 100px 0;
+    color: #fff;
+}
+
+.hero h1 {
+    font-size: 36px;
+    margin-bottom: 20px;
+}
+
+.hero p {
+    font-size: 18px;
+    margin-bottom: 40px;
+}
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 30px;
+    background-color: #ff6600;
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.cta-button:hover {
+    background-color: #ff9900;
+}
+
+/* Style the main content sections */
+.main-content {
+    background-color: #fff;
+    padding: 40px 0;
+}
+
+.about, .services {
+    margin-bottom: 40px;
+}
+
+.about h2, .services h2 {
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+.service {
+    margin-bottom: 20px;
+}
+
+.service h3 {
+    font-size: 18px;
+    margin-bottom: 10px;
+}
+
+/* Style the footer */
+.footer {
+    background-color: #333;
+    color: #fff;
+    text-align: center;
+    padding: 20px 0;
+}
+```
+### Now its time to load static
+1. here is updated index.html 
+```
+<!DOCTYPE html>
+<html lang="en">
+{% load static %}
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Beautiful Home Page</title>
+    <link rel="stylesheet" href='{% static "css/style.css" %}'> 
+    <link rel="shortcut icon" href='{% static "images/favicon.ico" %}' type="image/x-icon">
+</head>
+<body>
+    <header class="header">
+        <nav class="navbar">
+            <div class="container">
+                <a href="#" class="logo">My Website</a>
+                <ul class="nav-links">
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Services</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+        </nav>
+        <div class="hero">
+            <div class="container">
+                <h1>Welcome to My Website</h1>
+                <p>Your trusted source for amazing content.</p>
+                <a href="#" class="cta-button">Learn More</a>
+            </div>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="about">
+            <div class="container">
+                <h2>About Us</h2>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam id justo at magna dapibus tristique.</p>
+            </div>
+        </section>
+        <section class="services">
+            <div class="container">
+                <h2>Our Services</h2>
+                <div class="service">
+                    <h3>Service 1</h3>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 2</h3>
+                    <p>Nullam id justo at magna dapibus tristique.</p>
+                </div>
+                <div class="service">
+                    <h3>Service 3</h3>
+                    <p>Phasellus gravida dolor in consectetur tincidunt.</p>
+                </div>
+            </div>
+        </section>
+    </main>
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2023 My Website. All rights reserved.</p>
+        </div>
+    </footer>
+</body>
+</html>
+```
+### here is updated style.css
+1. just update images to relative path
+```
+.hero {
+    background-image: url('../images/horse.jpg');
+    background-size: cover;
+    text-align: center;
+    padding: 100px 0;
+    color: #fff;
+}
+```
 
 #### Regards Muhammad Hashim
