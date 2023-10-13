@@ -213,14 +213,14 @@ Steps to create applications
 1. Go to Project Folder
 2. Run the following command
 ```
-python manage.py startapp admission
+django-admin startapp admission
 ```
 3. creating multiple applications 
 run the following commands
 ```
-python manage.py startapp admission
-python manage.py startapp student
-python manage.py startapp teacher
+django-admin  startapp admission
+django-admin  startapp student
+django-admin  startapp teacher
 ```
 
 ### Installing Application in our Project
@@ -1158,9 +1158,7 @@ STATIC_URL = 'static/'
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 # print(STATIC_URL)
 # print(STATIC_DIR)
-STATICFILES_DIRS = [
-    STATIC_DIR
-]
+STATICFILES_DIRS = [STATIC_DIR]
 # print(STATICFILES_DIRS)
 ```
 
@@ -1432,5 +1430,56 @@ body {
     color: #fff;
 }
 ```
+### Django Template Inheritance / Template Extending
+1. Template inheritance allows you to build a base “skeleton” template that contains all the common elements of your site and defines blocks that child templates can override.
+2. The "extends" is used to inherit template.
+3. Extends tag tells the template engine that this template "extends" another template.
+4. {% extends %} 
+
+<pre>
+Syntax
+{% extends 'parent_template' %}
+{% extends variable %}
+Example:
+{% extends "./base.html" %}
+{% extends "../base.html" %}
+</pre>
+5. {% block %} - The block tag is used for overriding specific part of a template.
+
+<pre>
+Syntax
+{% block blockname %} ....... {% endblock %}
+{% block blockname %} ....... {% endblock endblockname %}
+Example:
+{% block title %} ....... {% endblock %}
+{% block content %} ....... {% endblock content %}
+</pre>
+
+6. Rules
+- If we use {% extends %} in a template, it must be the first template tag in that template. Template inheritance won't work otherwise.
+- More {% block %} tags in our base template is better.
+- if we need to get the content of the block from the parent template, the {{ block.super }} variable will do the trick.
+
+#### Note Now to better understand lets check in the projects directory, and inside projects directory find project3 for extends tag and block tag.
+
+### url tag
+1. {% url %} - it returns an absolute path reference matching a given view and optional parameters.
+- path (route, view, kwargs = none, name = None)
+<pre>
+Syntax
+{% url 'urlname' %}
+{% url 'urlname' as variable %}
+Example: views.py
+def home(request):
+    return render(request, "home.html")
+Example: urls.py
+urlpatterns = [
+    path('home/' , views.home, name ="Home")
+]
+Example index.html
+<a href ="{% url 'Home' %}">Home</s>
+</pre>
+
+#### Note see project3 for url tag
 
 #### Regards Muhammad Hashim
