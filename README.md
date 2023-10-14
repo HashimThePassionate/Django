@@ -2,9 +2,42 @@
 
 ## Table of Contents
 - [Cloning the Repository](#Cloning-the-Repository)
-- [Steps to install Django globally:](#Steps-to-install-Django-globally:)
-- [Install Django Globally](#Install-Django-Globallyn)
+- [Steps to install Django globally](#Steps-to-install-Django-globally)
+- [Install Django Globally](#Install-Django-Globally)
 - [To uninstall Django globally](#To-uninstall-Django-globally)
+- [Install Django in Virtual Environment](#Install-Django-in-Virtual-Environment)
+- [Uninstall Django in Virtual Environment](#Uninstall-Django-in-Virtual-Environment)
+- [Complete uninstall virtualenvwrapper-win](#Complete-uninstall-virtualenvwrapper-win)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [How to run servert](#How-to-run-server)
+- [Setup MYSQL Database in Django](#Setup-MYSQL-Database-in-Django)
+- [Setup PostgreSQL Database in Django ](#Setup-PostgreSQL-Database-in-Django)
+- [How to Create and Start Application](#How-to-Create-and-Start-Application)
+- [Installing Application in our Project](#Installing-Application-in-our-Project)
+- [Command to check django installation folder](#Command-to-check-django-installation-folder)
+- [Write your first view](#Write-your-first-view)
+- [Urls Pattern in Project level urls.py](#Urls-Pattern-in-Project-level-urls.py)
+- [Urls Patterns inside  in Application  urls.py](#Urls-Patterns-inside-in-Application-urls.py)
+- [Create dynamic templates folder inside root directory](#Create-dynamic-templates-folder-inside-root-directory)
+- [Create dynamic templates folder inside Application](#Create-dynamic-templates-folder-inside-Application)
+- [Lets explore Django built in filters](#Lets-explore-Django-built-in-filters)
+- [Built-in template tagst](#Built-in-template-tags)
+- [Create static folder inside root project](#Create-static-folder-inside-root-project)
+- [Django Template Inheritance / Template Extending](#Django-Template-Inheritance-/-Template-Extending)
+- [url tag](#url-tag)
+- [Include tag](#Include-tag)
+- [What is Model in Django?](#What-is-Model-in-Django?)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Projecty)
+
+
+
 
 # Django Project Repository
 
@@ -26,7 +59,7 @@ To clone this repository to your local machine, use the following steps:
 git clone https://github.com/HashimThePassionate/Django.git
 ```
 
-### Steps to install Django globally:
+### Steps to install Django globally
 1. Install Python 3. Django is a Python framework, so you will need Python 3 installed on your machine. You can download Python from the Python website here is the link https://www.python.org/downloads/.
 2. Install pip. pip is a package manager for Python that is used to install Django. If you have Python 3 installed, pip should already be installed. You can check by running the following command in a terminal:
 ```
@@ -158,8 +191,7 @@ On windows
 ```
 crtl + c
 ```
-### Setup MYSQL Database in Django (#config)
-- [Setup MYSQL Database in Django] (#config)
+### Setup MYSQL Database in Django
 Make Sure to download MySQL Server, MySQL Workbench
 1. To connect a MySQL database server to your Django project, you need to configure the database settings in your project's.
 2. settings.py file. Additionally, you'll want to make sure you have the MySQL Python connector (usually referred to as mysqlclient)
@@ -436,7 +468,7 @@ createServer()
 ```
 Run this code and see how the web server response in a client request
 
-### Now lets send back data  too Client 
+### Now lets send back data too Client 
 ```
 import socket
 mysock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
@@ -531,7 +563,7 @@ App/
 </pre>
 3. open urls.py and paste this code
 4. This is the simplest view possible in Django. To call the view, we need to map it to a URL - and for this we need a URLconf.
-### In the App/urls.py file include the following code:
+### In the App/urls.py file include the following code
 ```
 from django.urls import path
 from SimpleApp import views
@@ -539,7 +571,7 @@ urlpatterns = [
     path("",views.index, name="home"),
 ]
 ```
-### The next step is to point the root URLconf at the project.urls module.
+### The next step is to point the root URLconf at the project.urls module
 1. In project/urls.py, add an import for django.urls.include and insert an include() in the urlpatterns list, so you have:
 ```
 from django.contrib import admin
@@ -1508,7 +1540,7 @@ Syntax
 5. We can use other database like mysql, postgresql etc. 
 
 ### Lets first setup database, in my example i used mysql see this section 
-- [Click to See] (#config)
+- [Setup MYSQL Database in Django](#Setup-MYSQL-Database-in-Django)
 
 
 #### Regards Muhammad Hashim
