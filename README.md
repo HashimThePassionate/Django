@@ -150,7 +150,7 @@ On windows
 ```
 crtl + c
 ```
-### Setup MYSQL Database in Django 
+### [Setup MYSQL Database in Django] (#config)
 Make Sure to download MySQL Server, MySQL Workbench
 1. To connect a MySQL database server to your Django project, you need to configure the database settings in your project's.
 2. settings.py file. Additionally, you'll want to make sure you have the MySQL Python connector (usually referred to as mysqlclient)
@@ -1490,5 +1490,16 @@ Syntax
 {% include 'footer.html' %}
 </pre>
 2. See in projects directory, under projects directry see project4, we use include and extend both tags within that project.
+
+### What is Model in Django?
+1. A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.
+2. Model class is a class which represent a table in database, each model is a python class that subclasses django.db.models.Model.
+3. Each attribute of the model represents a database field
+4. With all of this, Django gives you an automatically-generated database-access API. Django provides built-in database by default that is sqlite database.
+5. We can use other database like mysql, postgresql etc. 
+
+### Lets first setup database, in my example i used mysql see this section 
+[Click to See] (#config)
+
 
 #### Regards Muhammad Hashim
