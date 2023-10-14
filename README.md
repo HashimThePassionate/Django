@@ -21,12 +21,12 @@
 - [Create dynamic templates folder inside root directory](#Create-dynamic-templates-folder-inside-root-directory)
 - [Create dynamic templates folder inside Application](#Create-dynamic-templates-folder-inside-Application)
 - [Lets explore Django built in filters](#Lets-explore-Django-built-in-filters)
-- [Built-in template tagst](#Built-in-template-tags)
+- [Built-in template tags](#Built-in-template-tags)
 - [Create static folder inside root project](#Create-static-folder-inside-root-project)
 - [Django Template Inheritance / Template Extending](#Django-Template-Inheritance-/-Template-Extending)
 - [url tag](#url-tag)
 - [Include tag](#Include-tag)
-- [What is Model in Django?](#What-is-Model-in-Django?)
+- [What is Model in Django](#What-is-Model-in-Django)
 
 
 # Django Project Repository
@@ -1522,7 +1522,7 @@ Syntax
 </pre>
 2. See in projects directory, under projects directry see project4, we use include and extend both tags within that project.
 
-### What is Model in Django?
+### What is Model in Django
 1. A model is the single, definitive source of information about your data. It contains the essential fields and behaviors of the data you’re storing. Generally, each model maps to a single database table.
 2. Model class is a class which represent a table in database, each model is a python class that subclasses django.db.models.Model.
 3. Each attribute of the model represents a database field
