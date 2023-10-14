@@ -8,7 +8,7 @@
 - [Install Django in Virtual Environment](#Install-Django-in-Virtual-Environment)
 - [Uninstall Django in Virtual Environment](#Uninstall-Django-in-Virtual-Environment)
 - [Complete uninstall virtualenvwrapper-win](#Complete-uninstall-virtualenvwrapper-win)
-- [Create a Django Project](#Create-a-Django-Projecty)
+- [Create a Django Project](#Create-a-Django-Project)
 - [How to run servert](#How-to-run-server)
 - [Setup MYSQL Database in Django](#Setup-MYSQL-Database-in-Django)
 - [Setup PostgreSQL Database in Django ](#Setup-PostgreSQL-Database-in-Django)
@@ -27,7 +27,7 @@
 - [url tag](#url-tag)
 - [Include tag](#Include-tag)
 - [What is Model in Django](#What-is-Model-in-Django)
-
+- [Create your own Model Class](#Create-your-own-Model-Class)
 
 # Django Project Repository
 
@@ -1532,5 +1532,19 @@ Syntax
 ### Lets first setup database, in my example i used mysql see this section 
 - [Setup MYSQL Database in Django](#Setup-MYSQL-Database-in-Django)
 
+### Create your own Model Class
+1. models.py file which is inside application folder, is required to create our own model class
+2. Our own model class will inherit Python's model class.
+<pre>
+Syntax
+class ClassName(models.Model):
+    field_Name = models.FieldType(args, options)
+
+Example: (models.py) 
+from django.db import models
+class Person(models.Model):
+    first_name = models.CharField(max_length=30)
+    last_name = models.CharField(max_length=30)
+</pre>
 
 #### Regards Muhammad Hashim
