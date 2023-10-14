@@ -1,3 +1,11 @@
+# Welcome to my GitHub repository!
+
+## Table of Contents
+- [Cloning the Repository](#Cloning-the-Repository)
+- [Steps to install Django globally:](#Steps-to-install-Django-globally:)
+- [Install Django Globally](#Install-Django-Globallyn)
+- [To uninstall Django globally](#To-uninstall-Django-globally)
+
 # Django Project Repository
 
 Welcome to the Django project repository. This repository contains a Django web steps by step guide.
@@ -44,7 +52,7 @@ django-admin --version
 ```
 If you see the version of Django that you installed, then Django has been installed successfully
 
-### To uninstall Django globally, follow these steps:
+### To uninstall Django globally
 
 1. Open a terminal window.
 2. To uninstall Django, run the following command:
