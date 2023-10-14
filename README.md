@@ -1482,4 +1482,13 @@ Example index.html
 
 #### Note see project3 for url tag
 
+### Include tag
+1. {% include tag %} Tag - It loads template and renders it with current context, This is a way of "including" other templates within template. Each include is a completely independent rendering process.
+<pre>
+Syntax
+{% include "header.html" %}
+{% include 'footer.html' %}
+</pre>
+2. See in projects directory, under projects directry see project4, we use include and extend both tags within that project.
+
 #### Regards Muhammad Hashim
