@@ -1,5 +1,4 @@
-# Welcome to my GitHub repository!
-
+# Welcome to my GitHub Django Zero to Hero repository!
 ## Table of Contents
 - [Cloning the Repository](#Cloning-the-Repository)
 - [Steps to install Django globally](#Steps-to-install-Django-globally)
@@ -29,6 +28,8 @@
 - [Include tag](#Include-tag)
 - [What is Model in Django](#What-is-Model-in-Django)
 - [Create your own Model Class](#Create-your-own-Model-Class)
+- [Steps to uae model to create table](#Steps-to-uae-model-to-create-table)
+- [Create a model Timing open models](#Create-a-model-Timing-open-models-file-inside-application-directory)
 
 # Django Project Repository
 
@@ -1547,5 +1548,118 @@ class Person(models.Model):
     first_name = models.CharField(max_length=30)
     last_name = models.CharField(max_length=30)
 </pre>
+
+### Steps to uae model to create table
+1. Once you have defined your models, you need to tell django you are going to use those model.
+- Open settings.py file
+- Write app name which contains model.py file in INSTALLED_APPS = []
+- Open Terminal
+- Run python manage.py makemigrations
+- Run python manage.py migrate
+
+2. Migrations
+- Migrations are Djnago way's of propagating changes you make to your models 
+- makemigrations: This is responsible for creating new migrations based on the changes you have made to your models.
+- migrate: This is responsible for applying and unapplying migrations.
+- sqlmigrate: This displays the SQL statements for migration
+- showmigrations: This lists a project's migrations and their status
+
+3. Display SQL Statements 
+- We can retrieve SQL statement by using below command:
+<pre>
+Syntax
+python manage.py sqlmigrate applicationName dbfileName
+Example:
+python manage.py sqlmigrate CasualApp 0001
+</pre>
+#### Note: File name can be found inside application's migrations folder.
+
+### Create a model Timing open models file inside application directory
+```
+from django.db import models
+class Timing(models.Model):
+    day = models.CharField(max_length=50, unique=True)
+    opening_hours = models.CharField(max_length=100)
+```
+
+### Now run this command to create a table 
+```
+python manage.py makemigrations CasualApp
+```
+- After running this command you will see this 
+<pre>
+Migrations for 'CasualApp':
+  CasualApp\migrations\0001_initial.py
+    - Create model Time
+</pre> 
+- Now lets migrate sql to create a table
+```
+python manage.py sqlmigrate CasualApp 0001
+```
+your output look like this
+<pre>
+Create model Time
+------------------------------------------------------
+CREATE TABLE `CasualApp_time` (`id` bigint AUTO_INCREMENT NOT NULL PRIMARY KEY, `day` varchar(50) NOT NULL UNIQUE, `opening_hours` varchar(100) NOT NULL);
+------------------------------------------------------
+</pre>
+```
+python manage.py migrate 
+```
+- Finally Migrate all changes
+<pre>
+Operations to perform:
+  Apply all migrations: CasualApp, admin, auth, contenttypes, sessions
+Running migrations:
+  Applying CasualApp.0001_initial... OK
+</pre>
+
+### Now insert some data using sql raw insert query, open mysql cmd or mysql worbench 
+1. In my case open mysql workbench, connect to  database server, finally use database which you connected in your settings.py and use that database. open sql query in mysql workbench.
+2. Write this sql query
+```
+INSERT INTO CasualApp_time (day, opening_hours) VALUES
+    ('Sunday', 'Closed'),
+    ('Monday', '7:00 AM to 8:00 PM'),
+    ('Tuesday', '7:00 AM to 8:00 PM'),
+    ('Wednesday', '7:00 AM to 8:00 PM'),
+    ('Thursday', '7:00 AM to 8:00 PM'),
+    ('Friday', '7:00 AM to 8:00 PM'),
+    ('Saturday', '9:00 AM to 5:00 PM');
+
+```
+### Now define a view to collect database data and pass as a dictionary views.py in application
+```
+from CasualApp.models import Time
+def store(request):
+    n1 = "COME ON IN Restaurant"
+    n2 = "WE'RE OPEN"
+    n3 = "1116 Orchard Street"
+    n4 = "Golden Valley, Minnesota"
+    n5 = "Call Anytime"
+    n6 = "(317) 585-8468"
+    time = Time.objects.all()
+    d = {'n1':n1,'n2':n2,'n3':n3,'n4':n4,'n5':n5,'T':time}
+    return render(request,'store.html',d)
+```
+
+### Now to display that data in index file 
+```
+{% if T %}
+<ul class="list-unstyled list-hours mb-5 text-left mx-auto">
+{% for t in T  %}
+<li class="list-unstyled-item list-hours-item d-flex">
+    {{t.day}}
+    <span class="ms-auto">{{t.opening_hours}}</span>
+</li>
+{% endfor %}
+{% else %}
+<li class="list-unstyled-item list-hours-item d-flex">
+    No Timing Available
+</li>
+</ul>
+```
+
+
 
 #### Regards Muhammad Hashim
