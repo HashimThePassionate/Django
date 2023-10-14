@@ -14,7 +14,7 @@
 - [Setup PostgreSQL Database in Django ](#Setup-PostgreSQL-Database-in-Django)
 - [How to Create and Start Application](#How-to-Create-and-Start-Application)
 - [Installing Application in our Project](#Installing-Application-in-our-Project)
-- [install django in virtual Environment with requirements.txt to control version control](#install-django-in-virtual-Environment-with-requirements.txt-to-control-version-control)
+- [install django in virtual Environment with requirements file to control version control](#install-django-in-virtual-Environment-with-requirements-file-to-control-version-control)
 - [Command to check django installation folder](#Command-to-check-django-installation-folder)
 - [Write your first view](#Write-your-first-view)
 - [Urls Pattern in Project level urls.py](#Urls-Pattern-in-Project-level-urls.py)
@@ -300,7 +300,7 @@ This files is used to create tests
 ### views.py file
 This file contain all about business logic
 
-### install django in virtual Environment with requirements.txt to control version control
+### install django in virtual Environment with requirements file to control version control
 - Follow these steps
 ```
 pip install virtualenvwrapper-win
