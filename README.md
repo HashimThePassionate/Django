@@ -14,6 +14,7 @@
 - [Setup PostgreSQL Database in Django ](#Setup-PostgreSQL-Database-in-Django)
 - [How to Create and Start Application](#How-to-Create-and-Start-Application)
 - [Installing Application in our Project](#Installing-Application-in-our-Project)
+- [Creating Requirement.txt file](#Now-We-need-to-install-django-in-virtual-Environmentwith-requirements.txt-to-control-version)
 - [Command to check django installation folder](#Command-to-check-django-installation-folder)
 - [Write your first view](#Write-your-first-view)
 - [Urls Pattern in Project level urls.py](#Urls-Pattern-in-Project-level-urls.py)
