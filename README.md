@@ -150,7 +150,8 @@ On windows
 ```
 crtl + c
 ```
-### [Setup MYSQL Database in Django] (#config)
+### Setup MYSQL Database in Django (#config)
+- [Setup MYSQL Database in Django] (#config)
 Make Sure to download MySQL Server, MySQL Workbench
 1. To connect a MySQL database server to your Django project, you need to configure the database settings in your project's.
 2. settings.py file. Additionally, you'll want to make sure you have the MySQL Python connector (usually referred to as mysqlclient)
@@ -1499,7 +1500,7 @@ Syntax
 5. We can use other database like mysql, postgresql etc. 
 
 ### Lets first setup database, in my example i used mysql see this section 
-[Click to See] (#config)
+- [Click to See] (#config)
 
 
 #### Regards Muhammad Hashim
