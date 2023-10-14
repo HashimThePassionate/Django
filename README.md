@@ -27,16 +27,6 @@
 - [url tag](#url-tag)
 - [Include tag](#Include-tag)
 - [What is Model in Django?](#What-is-Model-in-Django?)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-- [Create a Django Project](#Create-a-Django-Projecty)
-
-
 
 
 # Django Project Repository
