@@ -30,6 +30,12 @@
 - [Create your own Model Class](#Create-your-own-Model-Class)
 - [Steps to uae model to create table](#Steps-to-uae-model-to-create-table)
 - [Create a model Timing open models](#Create-a-model-Timing-open-models-file-inside-application-directory)
+- [Admin Application](#Admin-Application)
+- [Creating a super user](#Creating-a-super-user)
+- [How to register model](#How-to-register-model)
+- [str method](#str-method)
+- [ModelAdmin display all data in the interface](#ModelAdmin-display-all-data-in-the-interface)
+- [Register Model by Decorator](#Register-Model-by-Decorator)
 
 # Django Project Repository
 
@@ -1659,7 +1665,88 @@ def store(request):
 </li>
 </ul>
 ```
+### Admin Application
+1. It is built-in application provided by Django.
+2. This application provides admin interface for CRUD operations without writing sql statements.
+3. It reads metadata from your models to provide a quick, model-centric interface where trusted users can manage content on your site.
+4. Admin application can be accessed using ```http://127.0.0.1:8000/admin```
+5. Super user is required to login into admin application.
 
+### Creating a super user
+- createsuperuser command is used to create super user.
+```
+python manage.py createsuperuser
+```
+- After running this command you see message like this
+<pre>
+Username (leave blank to use 'dell'): Hashim
+Email address: hashiimtahir@gmail.com
+Password: 
+Password (again): 
+This password is too short. It must contain at least 8 characters.
+This password is too common.
+Bypass password validation and create user anyway? [y/N]: y
+Superuser created successfully.
+</pre>
 
+### How to register model
+1. We are registering our table which we has created using model class, to default admin interface.
+2. Steps to register follows:
+- Open admin.py file which is inside application directory.
+- Import your own Model class created inside Application's models.py file.
+- admin.site.register(ModelClassName)
+
+<pre>
+Example:
+Open admin.py
+From CasualApp.models import Time
+admin.site.register(Time)
+</pre>
+
+### str method
+1. The __str__() method is called whenever you call str() on an object. To display an object in Django admin site and as the value inserted into a template when it displays an object. Thus, you shiuld always return a nice, human-readable representation of the model from the __str__() method.
+2. Write this method in your own model class which is inside models.py file.
+<pre>
+Syntax
+def __str__(self):
+    return self.fieldName
+Example:
+def __str__(self):
+    return self.day
+</pre>
+#### Note  __str__() method only display one field to display all the field use ModelAdmin
+
+### ModelAdmin display all data in the interface
+1. The ModelAdmin class is the representation of a model in the admin interface.
+2. To show table's all the data in the admin interface we have to create ModelAdmin class in the admin.py of application directory.
+3. list_display() 
+- list_display to control which fields are displayed on the change list page of admin. if you don't set list_display, the admin site will display a single column that display the __str__() representation of each object.  
+<pre>
+Syntax: Creating ModelAdmin class in admin.py
+class ModelAdminClassName(admin.ModelAdmin):
+    list_display=('fieldname1','fieldname2', ....... so on)
+Register above created class
+admin.site.register(ModelClassName,ModelAdminClassName)
+
+Example: admin.py
+from django.contrib import admin
+from CasualApp.models import Time
+class TimeAdmin(admin.ModelAdmin):
+    list_display=('day','opening_hours')
+admin.site.register(Time,TimeAdmin)
+</pre>
+
+### Register Model by Decorator
+1. A decorator can be used to register modelAdmin classes.
+<pre>
+Syntax:
+@admin.register(ModelClassName1,ModelClassName2, .....)
+Example: admin.py
+from django.contrib import admin
+from CasualApp.models import Time
+@admin.register(Time)
+class TimeAdmin(admin.ModelAdmin):
+    list_display=('day','opening_hours')
+</pre>
 
 #### Regards Muhammad Hashim
