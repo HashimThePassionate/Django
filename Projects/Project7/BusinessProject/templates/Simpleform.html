@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}About{% endblock title %}
+{% block main%}
+    <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">
+                  {{ field.label}}
+                </label>
+                
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary " style="width: 50%; margin:0 250px;">Submit</button>
+        </form>
+      </div>
+    </div>
+{% endblock main %}

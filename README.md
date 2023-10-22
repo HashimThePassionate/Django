@@ -47,6 +47,20 @@
 - [Ordering a form](#Ordering-a-form)
 - [Render Form field manually](#Render-Form-field-manually)
 - [Loop Form](#Loop-Form)
+- [Form Fields](#Form-Fields)
+- [Field Arguments](#Field-Arguments)
+- [Fields Arguments Example forms in application level](#Fields-Arguments-Example-forms-in-application-level)
+- [Widget](#Widget)
+- [Built-in Widgets](#Built-in-Widgets)
+- [GET and POST ](#GET-and-POST )
+- [What is Cross Site Request Forgery](#What-is-Cross-Site-Request-Forgery)
+- [Here how CSRF protection using tokens work](#Here-how-CSRF-protection-using-tokens-work)
+- [Get Django Form Data](#Get-Django-Form-Data)
+- [Get Django form Data in CMD Terminal](#Get-Django-form-Data-in-CMD-Terminal)
+- [Built-in Fields ](#Built-in-Fields)
+- [Custom Cleaning and Validating Specific Field](#Custom-Cleaning-and-Validating-Specific-Field)
+- [Validation of Complete Django Form at once ](#Validation-of-Complete-Django-Form-at-once)
+- [Save Form Data in Database](#Save-Form-Data-in-Database)
 
 
 # Django Project Repository
@@ -1955,6 +1969,652 @@ def simpleForm(request):
    
 </body>
 </html>
+```
+### Form Fields
+A form's fields are themselves classes, they manage form data and perform validation when a form is submitted.
+<pre>
+Syntax:
+FieldType(**kwargs)
+
+Example:
+IntegerField()
+EmailField()
+CharField()
+</pre>
+
+### Simple Example
+```
+from django import forms
+class studentRegistration(forms.Form):
+    name=forms.CharField()
+    email=forms.EmailField()
+    number=forms.IntegerField()
+```
+
+### Field Arguments
+1. Field.required
+-  By default, each Field class assumes the value is required, so if you pass an empty value – either None or the empty string ("") – then clean() will raise a ValidationError exception.
+2. Label
+- The label argument lets you specify the “human-friendly” label for this field. This is used when the Field is displayed in a Form.
+3. label_suffix
+- The label_suffix argument lets you override the form’s label_suffix on a per-field basis.
+4.  initial
+- The initial argument lets you specify the initial value to use when rendering this Field in an unbound Form.
+5. widget
+- The widget argument lets you specify a Widget class to use when rendering this Field. See Widgets for more information.
+6. help_text
+- The help_text argument lets you specify descriptive text for this Field. If you provide help_text, it will be displayed next to the Field when the Field is rendered by one of the convenience Form methods (e.g., as_ul()).
+7. error_messages
+- The error_messages argument lets you override the default messages that the field will raise. Pass in a dictionary with keys matching the error messages you want to override. For example, here is the default error message.
+8. validators
+- The validators argument lets you provide a list of validation functions for this field.
+9. disabled
+- The disabled boolean argument, when set to True, disables a form field using the disabled HTML attribute so that it won’t be editable by users. Even if a user tampers with the field’s value submitted to the server, it will be ignored in favor of the value from the form’s initial data.
+
+### Fields Arguments Example forms in application level
+```
+from django import forms
+import datetime as d
+class studentRegistration(forms.Form):
+    first_name=forms.CharField(initial="Muhammad",error_messages={"required": "Please enter your first name"})
+    last_name=forms.CharField(required=False,initial="Hashim")
+    full_name=forms.CharField(label="Good Name",help_text="Maximum 100 Character of length",max_length=100)
+    email=forms.EmailField(initial="hashiimtahir@gmail.com")
+    num=forms.IntegerField(required=False,initial=93075239903)
+    url=forms.URLField(required=False,label="Your Website",initial="https://www.google.com")
+    date=forms.DateField(initial=d.date.today,help_text = "Please use the following format: <em>YYYY-MM-DD</em>.")
+```
+### Fields Arguments Example views.py in application level
+```
+def simpleForm(request):
+    default_data = {'first_name':'Ali','last_name':'Ahmed','full_name':'Ali Ahmed','email':'aliahmed@gmail.com','url':'https://www.yahoo.com'}
+    default_empty = {'first_name':'','last_name':'','full_name':'','email':'','url':''}
+    # if you pass initial value as a dictionary than form.py initial value will be ignore
+    form = studentRegistration(default_empty,auto_id=True)
+    d = {'form':form} 
+    print(form)
+    return render(request,'Simpleform.html',d)
+```
+
+### Fields Arguments Example template Simpleform.html in project level
+```
+<div style="background-color:white; padding:30px 50px">
+    <h1>Simple Form</h1>
+    <div>
+      <form action="" novalidate>
+        {% for f in form %}
+        {{f.label_tag}}
+        {{f}} <br><br>
+        {% endfor %}
+          <input type="submit" value="submit"><br><br>
+      </form>
+    </div>
+    <form action="">
+      {{form.as_p}} 
+      <input type="submit" value="submit">
+    </form>
+</div>
+```
+
+### Fields Arguments Example urls.py in project level level
+```
+from django.urls import path
+from BusinessApp import views
+path('simple/',views.simpleForm, name='simpleus'),
+```
+
+### Widget
+1. A widget is Django's representation of an HTML input element.
+2. The widget handles the rendering of the HTML, and the extraction of data a GET/POST dictionary that corresponds to the widget.
+3. Example are TextInput, Textarea
+4. A dictionary containing HTML attributes to be set on the rendered widget.
+If you assign a value of True or False to an attribute, it will be rendered as an HTML5 boolean attribute.
+- Example : 
+<pre>
+feedback=forms.CharField(widget=forms,TextInput(attrs={'class':'somecss1 somecss2',
+'id':'uniqueid'}))
+</pre>
+
+### Built-in Widgets
+1. TextInput - It renders as: 
+- Example: TextInput - It renders as: <input type="text"...>
+<pre>
+name = forms.CharField(widget=forms.TextInput)
+</pre>
+2. NumberInput - It renders as: 
+- Example: NumberInput - It renders as: <input type="number"...>
+<pre>
+name = forms.CharField(widget=forms.NumberInput)
+</pre>
+3. EmailInput - It renders as: 
+- Example: EmailInput - It renders as: <input type="email"...>
+<pre>
+name = forms.CharField(widget=forms.EmailInput)
+</pre>
+4. URLInput - It renders as: 
+- Example: URLInput - It renders as: <input type="url"...>
+<pre>
+name = forms.CharField(widget=forms.URLInput)
+</pre>
+5. PasswordInput - It renders as: 
+- Example: PasswordInput - It renders as: <input type="password"...>
+<pre>
+name = forms.CharField(widget=forms.PasswordInput)
+</pre>
+6. HiddenInput - It renders as: 
+- Example: HiddenInput - It renders as: <input type="hidden"...>
+<pre>
+name = forms.CharField(widget=forms.HiddenInput)
+</pre>
+7. DateInput - It renders as: 
+- Example: DateInput - It renders as: <input type="text"...>
+<pre>
+name = forms.CharField(widget=forms.DateInput)
+</pre>
+
+### GET and POST  
+- GET should be used only for requests that do not affect the state of the system.
+- Any request that could be used to change the state of the system should use POST. 
+- GET would also not suitable for a password form, because the password would appear in the URL, and thus, also in browser history and server logs, all in plain text. Neither would it be suitable for large quantities of data, or for binary data, such as an image. A Web application that uses GET requests for admin forms is a security risk: it can be easy for an attacker to mimic a form's request to gain access to sensitive parts of the system.
+- POST, coupled with other protections like Django's CSRF protection offers more control over access.
+- GET, by contrast, bundles the submitted data into a string, and uses this to compose a URL. The URL contains the address where the data must be sent, as well as the data keys and values
+- Django's login form is returned using the POST method, in which the browser bundles up the form data, encodes it for transmission, sends it to the server, and then receives back its response.
+- GET is suitable for things like a web search form, because the URLs that represek a GET request can easily be bookmarked, shared, or resubmitted. 
+
+### What is Cross Site Request Forgery
+CSRF, or Cross-Site Request Forgery, is a type of security vulnerability that occurs when an attacker tricks a user into unknowingly making an unwanted and potentially malicious request to a web application on which the user is authenticated. CSRF attacks can target any action that can be initiated via an HTTP request, such as changing a password, making a purchase, or modifying account settings.
+1. The attacker creates a malicious webpage that includes a form or script.
+2. The victim, who is logged into a web application, visits the malicious webpage.
+3. Without the victim's knowledge, the malicious page sends a request to the web application on which the victim is authenticated.
+4. The web application, believing the request is legitimate because it comes from the victim's browser with valid authentication cookies, processes the request.
+5. The victim's account is modified or an action is taken without their consent.
+
+#### Here how CSRF protection using tokens work
+1. When a user logs in or creates a session, the server generates a random CSRF token and associates it with that user's session.
+2. The CSRF token is included in any form presented to the user, typically as a hidden field.
+3. When the user submits a form, the server checks if the included CSRF token matches the one associated with the user's session. If it doesn't match, the server rejects the request.
+4. The CSRF token is unique to each user and session, making it extremely difficult for attackers to forge valid tokens.
+
+### CSRF Token in Django
+- In Django, a popular web framework for Python, CSRF protection is automatically enabled for all HTML forms via middleware. It generates unique CSRF tokens for each user session and verifies the tokens when processing form submissions.
+
+### Get Django Form Data
+- Validate Data / Field Validation
+- Get Cleaned Data
+
+### Django Form and Field Validation 
+1. is valid() - This method is used to run validation and return a Boolean designating whether the data was valid as True or not as False. This returns True or False. 
+<pre>
+Syntax: views.py
+form.is_valid()
+</pre>
+2. cleaned data — This attribute is used to access clean data. Each field in a Form class is responsible not only for validating data, but also for "cleaning" it normalizing it to a consistent format. This is a nice feature, because it allows data for a particular field to be input in a variety of ways, always resulting in consistent output. Once you've created a Form instance with a set of data and validated it, you can access the clean data via its cleaned_data attribute. 
+3. Any text based field such as CharField or EmailField always cleans the input into a string.
+4. If your data does not validate, the cleaned_data dictionary contains only the valid fields.
+5. cleaned data will always only contain a key for fields defined in the Form, even if you pass extra data when you define the Form. When the Form is valid, cleaned data will include a key and value for all its fields, even if the data didn't include a value for some optional field.
+
+### Get Django form Data in CMD Terminal
+### Follow steps
+1. Step:1 forms.py
+```
+from django import forms
+class contactform(forms.Form):
+    username=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control','id':'exampleid'}), required=True)
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class':'form-control','id':'exampleid'}))
+```
+2. Step:2 Get submitted data in views.py
+```
+from .forms import contactform
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            print("Form Validated with POST Data")
+            print(f'Your Name is ${form.cleaned_data["username"]}')
+            print(f'Your password is ${form.cleaned_data["password"]}')
+            print("All the input in same way")
+            print(form.cleaned_data)
+            # form = contactform(auto_id=True)
+            # return render(request,'success.html',{'name':name}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+        print(form)
+    return render(request,'Simpleform.html',{'form':form})
+```
+3. Step:3 Render Html form 
+```
+   <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+```
+
+### Step:4 Success template success.html
+```
+{% block main%}
+{% load static %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <div class="alert bg-light text-center" role="alert">
+          <img src='{% static "assets/img/success.svg" %}' alt="Success Icon" width="64" height="64">
+          <h4 class="alert-heading">Hey {{name}}!</h4>
+          <p>Your request has been processed successfully.</p>
+          <hr>
+          <p class="mb-0">Thank you for submit a request.</p>
+        </div>
+          <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+{% endblock main %}
+```
+### Built-in Fields 
+1. CharField(**kwargs) 
+-  Default widget: TextInput 
+-  Empty value: Whatever you've given as empty_value. 
+-  Normalizes to: A string. Uses MaxLengthValidator and MinLengthValidator if max_length and  min_length are provided. Otherwise, all inputs are valid.
+-  Error message keys: required, maxiength, miniength I
+-  It has three optional arguments for validation:
+-  max length and min length - If provided, these arguments ensure that the string is at most or at least the given length.
+-  strip - If True (default), the value will be stripped of leading and trailing whitespace.
+-  empty_value - The value to use to represent "empty". Defaults to an empty string.
+
+<pre>Example forms.py</pre>
+```
+from django import forms
+class contactform(forms.Form):
+    name=forms.CharField(min_length=5, max_length=10, error_messages={'required':'Please Enter Your Name','min_length':'Your name must be at least 5 characters long','max_length':'Your name cannot exceed 10 characters.'},widget=forms.TextInput(attrs={'class':'form-control','id':'exampleid'})) 
+``` 
+
+<pre>Example views.py</pre>
+```
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            print("Form Validated with POST Data")
+            print(f'Your Name is ${name}')
+            print("All the input in same way")
+            print(form.cleaned_data)
+            return render(request,'success.html',{'name':name}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+    return render(request,'Simpleform.html',{'form':form})
+```
+
+<pre>Example Simpleform.html</pre>
+```
+{% block main%}
+<div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                {{ field.label_tag }}
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+{% endblock main %}
+``` 
+
+2. BooleanField(**kwargs) 
+-  Default widget: CheckboxInput
+-  Empty value: False
+-  Normalizes to: A Python True or False value.
+-  Validates that the value is True (e.g. the check box is checked) if the field has required=True. 
+- Error message keys: required.
+
+<pre>Example forms.py</pre>
+```
+from django import forms
+class contactform(forms.Form):
+    name=forms.CharField(min_length=5, max_length=10, error_messages={'required':'Please Enter Your Name','min_length':'Your name must be at least 5 characters long','max_length':'Your name cannot exceed 10 characters.'},widget=forms.TextInput(attrs={'class':'form-control','id':'exampleid'}))
+    agree=forms.BooleanField(label_suffix='',error_messages={'required':'Please agree to our terms and conditions'},widget=forms.CheckboxInput(attrs={'class':'form-check-input'}),label="I agree")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['agree'].label = 'I agree'
+        self.fields['agree'].label_tag = 'class="form-label"' 
+``` 
+
+<pre>Example views.py</pre>
+```
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            agree = form.cleaned_data["agree"]
+            print("Form Validated with POST Data")
+            print(f'Your Name is ${name}')
+            print(f'Your are agree Y/n ${agree}')
+            print("All the input in same way")
+            print(form.cleaned_data)
+            return render(request,'success.html',{'name':name}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+    return render(request,'Simpleform.html',{'form':form})
+```
+
+<pre>Example Simpleform.html</pre>
+```
+ <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">
+                  {{ field.label}}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary " style="width: 50%; margin:0 250px;">Submit</button>
+        </form>
+      </div>
+    </div>
+```
+
+### Custom Cleaning and Validating Specific Field
+- clean_<fieldname>0 - This method is called on a form subclass where <fieldname> is replaced with the name of the form field attribute. This method does any cleaning that is specific to that particular attribute, unrelated to the type of field that it is. This method is not passed any parameters. You will need to look up the value of the field in self.cleaned_data and remember that it will be a Python object at this point, not the original string submitted in the form. 
+
+### Cleaning and validating specific field
+<pre>forms.py</pre>
+```
+from django import forms
+class contactform(forms.Form):
+    name=forms.CharField(min_length=5, max_length=10, error_messages={'required':'Please Enter Your Name','min_length':'Your name must be at least 5 characters long','max_length':'Your name cannot exceed 10 characters.'},widget=forms.TextInput(attrs={'class':'form-control','id':'exampleid'}))
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password'}))
+    def clean_password(self):
+        p = self.cleaned_data['password']
+        if p == 'password' or 'password' in p.lower():
+            raise forms.ValidationError('Password should not contain the word "password" ')
+    agree=forms.BooleanField(label_suffix='',error_messages={'required':'Please agree to our terms and conditions'},widget=forms.CheckboxInput(attrs={'class':'form-check-input'}),label="I agree")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['agree'].label = 'I agree'
+        self.fields['agree'].label_tag = 'class="form-label"' 
+```
+
+<pre>views.py</pre>
+```
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST,request.FILES)
+        if form.is_valid():
+            name = form.cleaned_data["name"]
+            agree = form.cleaned_data["agree"]
+            print("Form Validated with POST Data")
+            print(f'Your Name is ${name}')
+            print(f'Your are agree Y/n ${agree}')
+            print("All the input in same way")
+            print(form.cleaned_data)
+            # form = contactform(auto_id=True)
+            return render(request,'success.html',{'name':name}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+        # print(form)
+    return render(request,'Simpleform.html',{'form':form})
+```
+<pre>Simplform.html</pre>
+```
+ <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">
+                  {{ field.label}}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary " style="width: 50%; margin:0 250px;">Submit</button>
+        </form>
+      </div>
+    </div>
+```
+
+### Validation of Complete Django Form at once 
+1. clean() — The clean() method on a Field subclass is responsible for running to_python(), validate(), and run validators() in the correct order and propagating their errors. . If, at any time, any of the methods raise ValidationError, the validation stops and that error is raised.
+2. This method returns the clean data, which is then inserted into the cleaned_data dictionary of the form. Implement a clean() method on your Form when you must add custom validation for fields that are interdependent. 
+<pre>
+Syntax:- 
+Form.clean() 
+</pre>
+
+### Validation of Complete Django Form at once Example with password match
+<pre>forms.py</pre>
+```
+from django import forms
+class contactform(forms.Form):
+    name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),error_messages={"required": "Please enter your name"})
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password'}),error_messages={"required": "Please enter password"} )
+    matchpassword = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password'}),error_messages={"required": "Please enter password"},label="Password (again)" )
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get('name')
+        password = cleaned_data.get('password')
+        matchpassword =  cleaned_data.get('matchpassword')
+        if password != matchpassword:
+            self.add_error('password', 'Password does not match')
+            self.add_error('matchpassword', 'Password does not match')
+        if name and len(name) < 4:
+            self.add_error('name', 'Name should not be less than 4')
+        if password and 'password' in password.lower():
+            self.add_error('password', 'Password should not contain the word "password"')
+    agree=forms.BooleanField(label_suffix='',error_messages={'required':'Please agree to our terms and conditions'},widget=forms.CheckboxInput(attrs={'class':'form-check-input'}),label="I agree")
+    def __init__(self, *args, **kwargs):
+        super().__init__(*args, **kwargs)
+        self.fields['agree'].label = 'I agree'
+        self.fields['agree'].label_tag = 'class="form-label
+```
+
+<pre>views.py</pre>
+```
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            name = form.cleaned_data['name']
+            password = form.cleaned_data['password']
+            matchpassword =  form.cleaned_data['matchpassword']
+            agree = form.cleaned_data['agree']
+            print("Form Validated with POST Data")
+            print(f'Your Name is ${name}')
+            print(f'Your are agree Y/n ${agree}')
+            print(f'Your passwordY/n ${password}')
+            print(f'Repeat passwordY/n ${matchpassword}')
+            print("All the input in same way")
+            print(form.cleaned_data)
+            # form = contactform(auto_id=True)
+            return render(request,'success.html',{'name':name}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+        # print(form)
+    return render(request,'Simpleform.html',{'form':form})
+```
+<pre>Simpleform.html</pre>
+```
+    <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">
+                  {{ field.label}}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary " style="width: 50%; margin:0 250px;">Submit</button>
+        </form>
+      </div>
+    </div>
+```
+
+### Save Form Data in Database
+<pre>Open forms.py to define form</pre>
+```
+from django import forms
+class contactform(forms.Form):
+    name=forms.CharField(widget=forms.TextInput(attrs={'class':'form-control'}),error_messages={"required": "Please enter your name"})
+    password = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password'}),error_messages={"required": "Please enter password"} )
+    matchpassword = forms.CharField(widget=forms.PasswordInput(attrs={'class': 'form-control', 'id': 'password'}),error_messages={"required": "Please enter password"},label="Password (again)" )
+    def clean(self):
+        cleaned_data = super().clean()
+        name = cleaned_data.get('name')
+        password = cleaned_data.get('password')
+        matchpassword =  cleaned_data.get('matchpassword')
+        if password != matchpassword:
+            self.add_error('password', 'Password does not match')
+            self.add_error('matchpassword', 'Password does not match')
+        if name and len(name) < 4:
+            self.add_error('name', 'Name should not be less than 4')
+        if password and 'password' in password.lower():
+            self.add_error('password', 'Password should not contain the word "password"')
+```
+<pre>Create model user</pre>
+```
+from django.db import models
+class user(models.Model):
+    name = models.CharField(max_length=50)
+    password = models.CharField(max_length=128)
+```
+<pre>Make migrations command</pre>
+```
+python manage.py makemigrations
+python manage.py makemigrations BusinessApp
+python manage.py migrate
+```
+<pre>Register model to admin site</pre>
+```
+from django.contrib import admin
+from .models import user
+@admin.register(user)
+class userAdmin(admin.ModelAdmin):
+    list_display=('id','name','password')
+```
+<pre>View.py to render form </pre>
+```
+from django.contrib.auth.hashers import make_password
+from .models import user
+from .forms import contactform
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            nm = form.cleaned_data['name']
+            pw = form.cleaned_data['password']
+            hp = make_password(pw)
+            reg = user(name=nm,password=hp)
+            reg.save()
+            # form = contactform(auto_id=True)
+            return render(request,'success.html',{'name':nm}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+        # print(form)
+    return render(request,'Simpleform.html',{'form':form})
+```
+<pre>Simpleform.html file</pre>
+```
+{% extends "base.html" %}
+{% block title %}About{% endblock title %}
+{% block main%}
+    <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <form action="" method="post" novalidate>
+          {% csrf_token %}
+          <div class="form-group">
+            {% for field in form %}
+              <div class="form-group">
+                <label for="{{ field.id_for_label }}" class="form-label">
+                  {{ field.label}}
+                </label>
+                {{ field }}
+                {% if field.errors %}
+                    {{ field.errors|striptags }}
+                {% endif %}
+              </div>
+            {% endfor %}
+          </div>
+          <button type="submit" class="btn btn-primary " style="width: 50%; margin:0 250px;">Submit</button>
+        </form>
+      </div>
+    </div>
+{% endblock main %}
+```
+<pre>success.html file</pre>
+```
+{% extends "base.html" %}
+{% block title %}Store{% endblock title %}
+{% block main%}
+{% load static %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <div class="alert bg-light text-center" role="alert">
+          <img src='{% static "assets/img/success.svg" %}' alt="Success Icon" width="64" height="64">
+          <h4 class="alert-heading">Hey {{name}}!</h4>
+          <p>Your request has been processed successfully.</p>
+          <hr>
+          <p class="mb-0">Thank you for submit a request.</p>
+        </div>
+          <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+      </div>
+    </div>
+  </div>
+{% endblock main %}
 ```
 
 #### Regards Muhammad Hashim
