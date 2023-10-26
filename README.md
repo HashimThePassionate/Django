@@ -2617,4 +2617,10 @@ def simpleForm(request):
 {% endblock main %}
 ```
 
+### Django ModelForm
+Django provides a helper class that lets you create a Form class from a Django model. This helper class is called as ModelForm. ModelForm is a regular Form which can automatically generate certain fields. The fields that are automatically generated depend on the content of the Meta class and on which fields have already been defined declaratively.
+- Create Model Class
+- Create ModelForm Class
+
+
 #### Regards Muhammad Hashim
