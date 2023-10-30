@@ -23,14 +23,5 @@ urlpatterns = [
     path('about/',views.about, name='aboutus'),
     path('product/',views.product, name='productus'),
     path('store/',views.store, name='storeus'),
-    path('contact/',views.contact, name='contactus'),
-<<<<<<< HEAD
-    path('simple/',views.simpleForm, name='simpleform'),
-    path('form/',views.fo, name='formus'),
-    path('success/',views.success, name='success'),
-    path('student/',views.stu, name='student'),
-    path('studentdetail/<int:id>/',views.studentdetail, name='studentdetail'),
-=======
-    path('simple/',views.simpleForm, name='simpleus'),
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
+    path('simple/',views.simpleForm, name='contactus'),
 ]

@@ -38,15 +38,14 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BusinessApp',
-<<<<<<< HEAD
-    "crispy_forms",
-    "crispy_bootstrap5",
+    'crispy_forms',
+    'crispy_bootstrap5',
 ]
+
+
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
+
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-=======
-]
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -85,27 +84,15 @@ WSGI_APPLICATION = 'BusinessProject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-<<<<<<< HEAD
-        'NAME': 'cms',          # Replace with your database name
-        'USER': 'root',              # Replace with your database user
-        'PASSWORD':'root',          # Replace with your database password
-        'HOST': 'localhost',         # Replace with your database host (e.g., 'localhost' or an IP address)
-        'PORT': '3306',              # Replace with your database port (MySQL default is 3306)
-=======
         'NAME': 'employee',      
         'USER': 'root',      
         'PASSWORD': 'hashim', 
         'HOST': 'localhost',   
         'PORT': '3306',   
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
     }
 }
 
 
-<<<<<<< HEAD
-
-=======
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
 
@@ -140,18 +127,10 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
-<<<<<<< HEAD
-STATIC_URL = 'static/'
-=======
 STATIC_URL = '/static/'
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
 STATIC_DIR = os.path.join(BASE_DIR,'static')
 STATICFILES_DIRS = [STATIC_DIR]
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
 
-<<<<<<< HEAD
-DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-=======
 
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1

@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Contact{% endblock title %}
+{% block main%}
+    <div class="container">
+      <div style="background-color:white; padding:30px 50px">
+        <div class="card">
+          <div class="card-body">
+            <form action="" method="post" novalidate>
+              {% csrf_token %}
+              {{form|crispy}} 
+              <div class="d-grid gap-2">
+                <input class="btn btn-warning" type="submit" value="Submit">
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+{% endblock main %}

@@ -1,8 +1,11 @@
 from django.shortcuts import render
+<<<<<<< HEAD
 from .forms import studentForm
 from .models import student
 from django.http import HttpResponseRedirect 
 # from .forms import contactform
+=======
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
 # Create your views here.
 def home(request):
     n1 = "Welcome to  Django"
@@ -45,6 +48,7 @@ def store(request):
 
 def contact(request):
     return render(request,'contact.html')
+<<<<<<< HEAD
 def success(request):
     return render(request,'success.html')
 
@@ -96,3 +100,28 @@ def studentdetail(request,id):
         s = {'n':name,'age':age,'c':course,'p':progress}
 
     return render(request,'studentdetail.html',s)
+=======
+
+def success(request):
+    return render(request,'success.html')
+
+from django.contrib.auth.hashers import make_password
+from .models import user
+from .forms import contactform
+def simpleForm(request):
+    if request.method == 'POST':
+        form = contactform(request.POST)
+        if form.is_valid():
+            nm = form.cleaned_data['name']
+            pw = form.cleaned_data['password']
+            hp = make_password(pw)
+            reg = user(name=nm,password=hp)
+            reg.save()
+            # form = contactform(auto_id=True)
+            return render(request,'success.html',{'name':nm}) 
+    else:
+        print("Empty Form with with GET Method")
+        form = contactform(auto_id=True)
+        # print(form)
+    return render(request,'Simpleform.html',{'form':form})
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1

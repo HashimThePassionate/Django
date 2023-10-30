@@ -1,4 +1,5 @@
 from django import forms
+<<<<<<< HEAD
 from .models import student
 from django.forms import ModelForm
 class studentForm(ModelForm):
@@ -20,3 +21,8 @@ class studentForm(ModelForm):
             
         }
         widgets = { 'student_email':forms.EmailInput(attrs={'placeholder':'example@gmail.com'})}
+=======
+class studentRegistration(forms.Form):
+    name=forms.CharField(label="Enter Your Name", label_suffix="",disabled=True)
+    email=forms.EmailField(help_text="Enter email with @")
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
