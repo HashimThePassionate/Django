@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block title %}Success{% endblock title %}
+{% block main%}
+{% load static %}
+<div class="container p-4" style="background-color:white; width:75vw; height:75vh;">
+    <div class="alert alert-info" role="alert" >
+        Please Check Student Detail
+    </div>
+    <a href="{% url "studentdetail" 1 %}" class="btn btn-warning">Zain</a>  
+    <a href="{% url "studentdetail" 2 %}" class="btn btn-primary">yonus</a>  
+    <a href="{% url "studentdetail" 3 %}" class="btn btn-info">kawish</a>  
+    <div>
+        <a href="{% url "student" %}" class="btn btn-secondary">Back</a> 
+    </div>
+</div>
+{% endblock main %}

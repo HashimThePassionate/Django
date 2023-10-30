@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+<<<<<<< HEAD
+{% block title %}Success{% endblock title %}
+=======
+{% block title %}Store{% endblock title %}
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
+{% block main%}
+{% load static %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <div class="alert bg-light text-center" role="alert">
+<<<<<<< HEAD
+          <img src='{% static "assets/success.svg" %}' alt="Success Icon" width="64" height="64">
+=======
+          <img src='{% static "assets/img/success.svg" %}' alt="Success Icon" width="64" height="64">
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
+          <h4 class="alert-heading">Hey {{name}}!</h4>
+          <p>Your request has been processed successfully.</p>
+          <hr>
+          <p class="mb-0">Thank you for submit a request.</p>
+        </div>
+          <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+<<<<<<< HEAD
+=======
+        
+>>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
+      </div>
+    </div>
+  </div>
+{% endblock main %}
