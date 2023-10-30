@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from .forms import studentForm
 from .models import student
+from django.http import HttpResponseRedirect 
 # from .forms import contactform
 # Create your views here.
 def home(request):
@@ -44,6 +45,8 @@ def store(request):
 
 def contact(request):
     return render(request,'contact.html')
+def success(request):
+    return render(request,'success.html')
 
 def simpleForm(request):
     myForm = studentRegistration(auto_id=True,label_suffix=':',initial= {'name':'Muhammad','email':'hashim@gmail.com'})
@@ -61,8 +64,35 @@ def fo(request):
             c = form.cleaned_data['student_course']
             studentObj = student(student_name=n,student_email=e,student_course=c)
             studentObj.save()
-            return render(request,'success.html',{'name':n})
+            # return render(request,'success.html',{'name':n})
+            return HttpResponseRedirect('/success/')
     else:
         form = studentForm()
     return render(request,'Simpleform.html',{'form':form})
 
+def stu(request):
+    return render(request,'student.html')
+
+def studentdetail(request,id):
+    if id == 1:
+        name = "Zain"
+        age = 23
+        course = "Python"
+        progress = "hard worker"
+        s = {'n':name,'age':age,'c':course,'p':progress}
+
+    if id == 2:
+        name = "Wahab"
+        age = 19
+        course = "Python"
+        progress = "hard worker"
+        s = {'n':name,'age':age,'c':course,'p':progress}
+
+    if id == 3:
+        name = "Yonis"
+        age = 19
+        course = "Python"
+        progress = "hard worker"
+        s = {'n':name,'age':age,'c':course,'p':progress}
+
+    return render(request,'studentdetail.html',s)

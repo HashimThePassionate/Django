@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Student Detail{% endblock title %}
+{% block main%}
+{% load static %}
+<div class="container p-4" style="background-color:white; width:75vw; height:75vh;">
+    <div class="card" style="width: 18rem;">
+        <ul class="list-group list-group-flush">
+          <li class="list-group-item">Student Name: {{n}}</li>
+          <li class="list-group-item">Student age is: {{age}}</li>
+          <li class="list-group-item">Student course is: {{c}}</li>
+          <li class="list-group-item">Student progress is: {{p}}</li>
+        </ul>
+        <div>
+            <a href="{% url "student" %}" class="btn btn-secondary">Back</a> 
+        </div>
+      </div>
+</div>
+{% endblock main %}

@@ -26,5 +26,7 @@ urlpatterns = [
     path('contact/',views.contact, name='contactus'),
     path('simple/',views.simpleForm, name='simpleform'),
     path('form/',views.fo, name='formus'),
-    
+    path('success/',views.success, name='success'),
+    path('student/',views.stu, name='student'),
+    path('studentdetail/<int:id>/',views.studentdetail, name='studentdetail'),
 ]
