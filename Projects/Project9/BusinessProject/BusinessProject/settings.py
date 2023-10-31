@@ -38,15 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'BusinessApp',
-<<<<<<< HEAD
     "crispy_forms",
     "crispy_bootstrap5",
 ]
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 CRISPY_TEMPLATE_PACK = "bootstrap5"
-=======
-]
->>>>>>> f70a6a7f5382a5a39c22d5f759bbee8cada889d1
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

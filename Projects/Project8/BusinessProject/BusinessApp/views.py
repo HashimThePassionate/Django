@@ -1,6 +1,7 @@
-from django.shortcuts import render
+from django.shortcuts import render , redirect
 from .forms import contact
 from .models import Student
+from django.contrib import messages
 # Create your views here.
 def home(request):
     n1 = "Welcome to  Django"
@@ -53,7 +54,30 @@ def simpleForm(request):
             course = form.cleaned_data['student_course']
             s = Student(student_name=name,student_email=email,student_course=course)
             s.save()
-            return render(request,'success.html',{'name':name})
+            messages.add_message(request,messages.SUCCESS,"Thank You, your data has been submitted")
+            # return render(request,'success.html',{'name':name})
     else:
         form = contact(auto_id=True)
-    return render(request,'Simpleform.html',{'form':form})
+    objstudent = Student.objects.all()
+    return render(request,'Simpleform.html',{'form':form,'student':objstudent})
+
+def delete(request,id):
+    db = Student.objects.get(pk=id)
+    try:
+        db.delete()
+    except:
+        print("Did not work")
+    return redirect('/simple/')
+
+def update(request,id):
+    row = Student.objects.get(pk=id)
+    if request.method =='POST':
+        form = contact(request.POST,instance=row)
+        if form.is_valid():
+            form.save()
+            messages.add_message(request,messages.SUCCESS,"Your Data has been changed Successfully!")
+    else:
+        form = contact(instance=row)
+         
+    return render(request,'update.html',{'form':form})
+        
