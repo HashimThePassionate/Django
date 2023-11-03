@@ -1,0 +1,70 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Contact{% endblock title %}
+{% block main%}
+<div class="container-fluid" style="background-color:white;">
+  <div class="container pt-3">
+    <div class="alert alert-info mt-4" role="alert">
+      Please Add New Record 
+  </div>
+  </div>
+    <div class="container">
+      <form action="" method="post" novalidate class='p-4'>
+        {% csrf_token %}
+        {{form|crispy}} 
+        <div class="d-grid gap-2">
+          <input class="btn btn-warning" type="submit" value="Submit">
+        </div>
+      </form>
+      {% if messages %}
+      <div class="alert alert-success mt-4" role="alert">
+        {% for m in  messages %}
+        {{m}}
+        {% endfor %}
+      </div>            
+      {% endif %}
+    </div>
+    <div class="container">
+      <div class="container pt-3">
+        <div class="alert alert-danger mt-4 text-center" role="alert">
+          Student Information 
+      </div>
+      <table class="table table-bordered border-danger table-hover">
+        <thead>
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
+            <th scope="col">Email</th>
+            <th scope="col">Course</th>
+            <th scope="col">Progress</th>
+            <th scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% if student %}
+          {% for s in  student %}
+          <tr>
+            <th scope="row">{{s.id}}</th>
+            <td>{{s.student_name}}</td>
+            <td>{{s.student_email}}</td>
+            <td>{{s.student_course}}</td>
+            <td>{{s.student_progress}}</td>
+            <td>
+             <div class="d-inline">
+              <a href="{% url "update" s.id %}" class="btn btn-primary d-inline">Edit</a>
+              <form action="{% url "delete" s.id %}" class="d-inline">
+                <input class="btn btn-danger" type="submit" value="Delete">
+              </form>
+             </div>
+            </td>
+          </tr>
+          
+          {% endfor %}
+          
+          {% endif %}
+        </tbody>
+      </table>
+    
+    </div>
+</div>
+{% endblock main %}

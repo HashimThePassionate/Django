@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}Store{% endblock title %}
+{% block main%}
+{% load static %}
+<div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-6 mt-5">
+        <div class="alert bg-light text-center" role="alert">
+          <img src='{% static "assets/img/success.svg" %}' alt="Success Icon" width="64" height="64">
+          <h4 class="alert-heading">Hey {{name}}!</h4>
+          <p>Your request has been processed successfully.</p>
+          <hr>
+          <p class="mb-0">Thank you for submit a request.</p>
+        </div>
+          <a href="{% url 'home' %}" class="btn btn-primary">Back to Home</a>
+        
+      </div>
+    </div>
+  </div>
+{% endblock main %}
