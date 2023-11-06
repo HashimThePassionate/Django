@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Update{% endblock title %}
+{% block main%}
+<div class="container-fluid bg-white">
+    <div class="container">
+      <div class="row bg-white p-4">
+        <div class="col">
+          <div class="alert alert-warning" role="alert">
+           Add a new record
+          </div>
+                <form action="" method="post" novalidate>
+                  {% csrf_token %}
+                  {{form|crispy}} 
+                  <div class="d-grid gap-2">
+                    <input class="btn btn-outline-success" type="submit" value="Update">
+                    <a href="{% url 'contactus' %}" class="btn btn-primary">Back Home</a>
+                  </div>
+                </form>
+        </div>
+      </div>
+    </div>
+{% endblock main %}
