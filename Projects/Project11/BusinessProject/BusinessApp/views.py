@@ -112,7 +112,7 @@ def update(request,id):
 def send_email(user_email):
     subject = "Registration Confirmation"
     message = "Hey! 👋,\n\nThank you for registering on our website!"
-    from_email = 'warriorecosystem346@gmail.com'
+    from_email = ''
     recipient_list = [user_email,]
     # send_mail(subject,message,from_email,recipient_list,fail_silently=False)
     send_mail(subject, message, from_email, recipient_list, fail_silently=False)
