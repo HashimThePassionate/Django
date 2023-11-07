@@ -1,0 +1,78 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Contact{% endblock title %}
+{% block main%}
+<div class="container-fluid bg-white">
+  <div class="container">
+    <div class="row bg-white p-4">
+      <div class="col">
+        <div class="alert alert-warning" role="alert">
+         Add a new record
+        </div>
+              <form action="" method="post" novalidate>
+                {% csrf_token %}
+                {{form|crispy}} 
+                <div class="d-grid gap-2">
+                  <input  id="myModal" class="btn btn-warning" type="submit" value="Submit" data-toggle="#myModal" data-target=".bd-example-modal-lg">
+                </div>
+              </form>
+            {% if messages %}
+                <div class="alert alert-success mt-2" role="alert">
+                {% for m in messages  %}
+                {{m}}
+                </div>
+                {% endfor %}
+                {% endif %}
+
+              {% comment %} <div id="myModal" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-lg">
+                  <div class="modal-content">
+                    <div id="modal-content" class="alert alert-success mt-2" role="alert">
+                    </div>
+                  </div>
+                </div>
+              </div> {% endcomment %}
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <div class="alert alert-info text-center" role="alert">
+          Student Information
+         </div>
+            <table class="table table-bordered border-primary">
+              <thead>
+                <tr>
+                  <th scope="col">ID</th>
+                  <th scope="col">Name</th>
+                  <th scope="col">Email</th>
+                  <th scope="col">Course</th>
+                  <th scope="col">Progress</th>
+                  <th scope="col" class="px-5">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {% for i in student  %}
+                <tr>
+                  <td>{{i.id}}</td>
+                  <td>{{i.student_name}}</td>
+                  <td>{{i.student_email}}</td>
+                  <td>{{i.student_course}}</td>
+                  <td>{{i.student_progress}}</td>
+                  <td>
+                    <a href="{% url 'update' i.id %}" class="btn btn-warning btn-sm">Edit</a>
+                    <form class="d-inline"action="{% url 'delete' i.id %}" method="post">
+                      {% csrf_token %}
+                      <input class="btn btn-danger" type="submit" value="Delete">
+                    </form>
+                  </td>
+                </tr>
+                {% endfor %}
+              </tbody>
+             </table>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock main %}

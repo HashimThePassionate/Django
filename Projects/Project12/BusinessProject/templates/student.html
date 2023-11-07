@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Student{% endblock title %}
+{% block main%}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+        <p>  Student Information</p>
+         <a href="{% url "dynamic" 1 %}" class="btn btn-info">Hashim info</a>
+         <a href="{% url "dynamic" 2 %}" class="btn btn-info">Wahab info</a>
+         <a href="{% url "dynamic" 3 %}" class="btn btn-info">Zain info</a>
+        </div>
+        <div class="d-grid gap-2">
+          <a href="{% url "login"  %}" class="btn btn-success">login</a>
+        </div>
+      </div>
+   
+</div>
+{% endblock main %}
