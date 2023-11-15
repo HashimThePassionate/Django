@@ -1,6 +1,6 @@
 from django import forms
 from .models import Student
-from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from django.contrib.auth.models import User
 class contact(forms.ModelForm):
     class Meta:
@@ -29,3 +29,11 @@ class customregistration(UserCreationForm):
             # 'first_name':forms.TextInput(attrs={'class':'form-control'}),
             # 'last_name':forms.TextInput(attrs={'class':'form-control'}),
         }
+
+
+class userEditForm(UserChangeForm):
+    password = None
+    class Meta:
+        model = User
+        fields = ['username', 'email']
+        labels = {'username':'Name','email':'Email'}

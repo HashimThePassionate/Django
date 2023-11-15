@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block blogtitle %}About Page{% endblock blogtitle %}
+{% block img %}background-image: url('{% static "assets/img/about-bg.jpg" %}'){% endblock img %}
+{% block heading %}About Me{% endblock heading %}
+{% block headspan %}This is what I do.{% endblock headspan %}
+{% block section %}
+<div class="container px-4 px-lg-5">
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <p>Want to get in touch? Fill out the form below to send me a message and I will get back to you as soon as possible!</p>
+            <div class="my-5">
+                <form id="contactForm" method="POST" novalidate>
+                    {% if messages %}
+                    <svg xmlns="http://www.w3.org/2000/svg" style="display: none;">
+                        <symbol id="check-circle-fill" fill="currentColor" viewBox="0 0 16 16">
+                          <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0zm-3.97-3.03a.75.75 0 0 0-1.08.022L7.477 9.417 5.384 7.323a.75.75 0 0 0-1.06 1.06L6.97 11.03a.75.75 0 0 0 1.079-.02l3.992-4.99a.75.75 0 0 0-.01-1.05z"/>
+                        </symbol>
+                      </svg>
+                        {% for message in messages %}
+                        <div class="alert alert-success  alert-dismissible fade show d-flex align-items-center" role="alert">
+                            <svg class="bi flex-shrink-0 me-2" width="24" height="24" role="img" aria-label="Success:"><use xlink:href="#check-circle-fill"/></svg>
+                            <div>
+                               {{ message }}
+                            </div>
+                            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                          </div>
+                        {% endfor %}
+                    {% endif %}
+                    {% csrf_token %}
+                    <div class="form-floating">
+                        {{form.name}}
+                        <label for="name">
+                            {{form.name.label}}
+                        </label>
+                        <div class="invalid-feedback" data-sb-feedback="name:required">
+                            {{form.error}}
+                        </div>
+                    </div>
+                  <div class="form-floating">
+                        {{form.email}}
+                        <label for="email"> {{form.email.label}}</label>
+                        <div class="invalid-feedback" data-sb-feedback="email:required"> {{form.error}}</div>
+                    </div>
+                    <div class="form-floating">
+                        {{form.phoneno}}
+                        <label for="phone">  {{form.phoneno.label}}</label>
+                    </div>
+                    <div class="form-floating">
+                        {{form.message}}
+                        <label for="message">{{form.message.label}}</label>
+                    </div>
+                    <br />
+                    <div class="d-grid gap-2">
+                        <input class="btn btn-primary text-uppercase " type="submit" value="Contact Us">
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock section %}
+  
+
+
+
+        

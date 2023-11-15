@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load static %}
+{% block blogtitle %}Blog{% endblock blogtitle %}
+{% block img %}background-image: url('{% static "assets/img/post-bg.jpg" %}'){% endblock img %}
+{% block heading %}Man must explore{% endblock heading %}
+{% block headspan %}Problems look mighty small from 150 miles{% endblock headspan %}
+{% block section %}
+<div class="container my-5">
+        {% if user.is_authenticated %}
+        <a href="{% url 'signout' %}" class="btn btn-primary btn-lg">Signout</a>
+        <a href="{% url 'addpost' %}" class="btn btn-info btn-lg">Add Post</a>
+        {% for  b in blog %}
+        <div class="row gx-lg-5">
+         <div class="col-md-10 col-lg-8 col-xl-7">
+        <h2 class="section-heading">{{b.title}}</h2>
+        <p>{{b.des}}</p>
+        <div class="d-inline">
+            <a href="{% url "update" b.id %}" class="btn btn-primary d-inline">Edit</a>
+            <form action="{% url "delete" b.id %}" class="d-inline">
+                {% if perms.Blogpost.delete_Blog %}
+                <input class="btn btn-danger" type="submit" value="Delete">
+                {% endif %}
+            </form>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </div>
+{% endblock section %}
+  

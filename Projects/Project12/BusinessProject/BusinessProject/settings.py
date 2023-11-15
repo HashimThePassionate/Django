@@ -45,26 +45,7 @@ INSTALLED_APPS = [
     'BusinessApp',
     'crispy_forms',
     'crispy_bootstrap5',
-    "django.contrib.sites",  # new
-    # 3rd party
-    "allauth", # new
-    "allauth.account", # new
-    "allauth.socialaccount", # new
-    # social providers
-    "allauth.socialaccount.providers.github", # new
 ]
-
-AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
-    'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by email
-    'allauth.account.auth_backends.AuthenticationBackend',
-]
-SITE_ID = 1
-ACCOUNT_EMAIL_VERIFICATION = "none"
-LOGIN_REDIRECT_URL = "profile"
-ACCOUNT_LOGOUT_ON_GET = True
 
 CRISPY_ALLOWED_TEMPLATE_PACKS = "bootstrap5"
 
@@ -109,7 +90,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'employee',      
         'USER': 'root',      
-        'PASSWORD': 'hashim', 
+        'PASSWORD': 'root', 
         'HOST': 'localhost',   
         'PORT': '3306',   
     }

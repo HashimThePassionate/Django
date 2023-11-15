@@ -33,6 +33,6 @@ urlpatterns = [
     path('login/',views.login ,name="login"),
     path('profile/',views.profile ,name="profile"),
     path('logout/',views.logout_profile ,name="logout"),
-    path("accounts/", include("allauth.urls")),
     path("security/",views.changepassword,name="changepassword"),
+    path("edit/",views.UserEdit,name="edit"),
 ]

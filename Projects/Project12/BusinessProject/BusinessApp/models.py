@@ -5,3 +5,8 @@ class Student(models.Model):
     student_course=models.CharField(max_length=50)
     student_progress=models.TextField()
 
+class Library(models.Model):
+    librarian = models.CharField(max_length=50)
+    books = models.CharField(max_length=50)
+    library_card = models.CharField(max_length=50)
+    wifi = models.BooleanField()

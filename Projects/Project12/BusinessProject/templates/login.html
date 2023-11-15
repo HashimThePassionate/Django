@@ -2,7 +2,6 @@
 {% block title %}Login{% endblock title %}
 {% load crispy_forms_tags %}
 {% block main%}
-{% load socialaccount %}
 <div class="container-fluid bg-white">
   <div class="container">
     <div class="row bg-white p-4">
@@ -35,10 +34,6 @@
                 {{form|crispy}} 
                 <div class="d-grid gap-2">
                   <input  class="btn btn-warning" type="submit" value="Submit" >
-                  <a href="{% provider_login_url 'github' %}" class="btn btn-secondary">
-                    <i class="fa fa-github fa-fw"></i>
-                    <span>Login with GitHub</span>
-                  </a>
                 </div>
             </form>
       </div>

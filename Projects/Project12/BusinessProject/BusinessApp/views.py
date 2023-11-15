@@ -1,10 +1,10 @@
 from django.shortcuts import render ,redirect
-from .forms import contact, customregistration
+from .forms import contact, customregistration, userEditForm
 from .models import Student
-# from django.contrib.auth.models import User
+from django.contrib.auth.models import User, Group
 from django.http import HttpResponseRedirect
 from django.contrib import messages
-from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm
+from django.contrib.auth.forms import UserCreationForm, PasswordChangeForm, UserChangeForm
 from django.core.mail import send_mail
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import authenticate, logout, update_session_auth_hash
@@ -155,6 +155,8 @@ def login(request):
 
 def profile(request):
     if request.user.is_authenticated:
+        g = Group.objects.get(name='editor')
+        request.user.groups.add(g)
         return render(request,'profile.html',{'name':request.user})
     else:
         return HttpResponseRedirect('/login/')
@@ -178,4 +180,17 @@ def changepassword(request):
     else:
         return redirect('/login/')
 
-        
+
+def UserEdit(request):
+    if request.user.is_authenticated:
+        if request.method == "POST":
+            form =  userEditForm(request.POST,instance=request.user)
+            if form.is_valid():
+                form.save()
+                messages.add_message(request,messages.SUCCESS,"User Details Edit!")
+                return redirect('/profile/')
+        else:
+            form =  userEditForm(instance=request.user)
+        return render(request,'userdetails.html',{'form':form,'user':request.user})
+    else:
+        return redirect('/login/')
