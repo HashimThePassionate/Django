@@ -148,44 +148,6 @@ C:\Users\DELL\Desktop\RoadMap\DJ\virtualenv.txt\Scripts\activate
 ```
 deactivate
 ```
-
-
-Replace myenv with the name you want to give to your virtual environment.
-4. To activate the virtual environment, use the workon command:
-```
-workon myenv
-```
-5. With your virtual environment activated, you can use pip to install Django
-```
-pip install Django
-```
-6. To deactivate the virtual environment when you're done working on your Django project, simply use the deactivate command
-
-### Uninstall Django in Virtual Environment
-1. If your virtual environment is not already active, activate it first. Depending on your operating system:
-On Windows:
-```
-workon Myenv
-```
-2. Once your virtual environment is active, you can use pip to uninstall Django:
-```
-pip uninstall Django
-```
-3. Deactivate the Virtual Environment:
-```
-deactivate
-```
-
-### Complete uninstall virtualenvwrapper-win
-1. Run the following command 
-```
-pip uninstall virtualenvwrapper-win
-```
-2. if you want to remove only virtualenv run the following command
-```
-rmvirtualenv myenv
-```
-
 ###  Create a Django Project
 1. Once Django is installed, you can create a Django project using the following command:
 ```
