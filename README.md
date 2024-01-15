@@ -99,9 +99,10 @@ If you want to install Django globally on your system, follow these steps:
 
 1. Open your terminal or command prompt.
 2. Run the following command:
+3. The latest official version is 5.0.1. Read the 5.0.1 release notes, then install it with pip:
 
 ```
-pip install django
+pip install Django==5.0.1
 ```
 3. Verify your Django installation. Once Django has been installed, you can verify your installation by running the following command in a terminal:
 ```
@@ -122,15 +123,33 @@ pip list
 ```
 
 ### Install Django in Virtual Environment
-1. To install virtualenvwrapper-win, which is a virtual environment management tool for Windows, Install virtualenvwrapper-win using pip: 
-2. Run the following command to install virtualenvwrapper-win:
+1. To install Django in a virtual environment, you can follow these steps. A virtual environment helps to keep your project dependencies isolated from the global Python environment.
+
+2. If you don't have `virtualenv` installed, you can install it using `pip`. Open your terminal or command prompt and run:
 ```
-pip install virtualenvwrapper-win
+pip install virtualenv
 ```
-3. After installing virtualenvwrapper-win, you can create a virtual environment for your Django project. Open a Command Prompt and run the following command
+
+3. Create a new directory for your Django project and navigate into it. Then, create a virtual environment by running:
 ```
-mkvirtualenv myenv
+virtualenv --version
 ```
+```
+python -m venv tutorial-env
+```
+4. Activate the virtual environment:
+```
+python --version
+```
+```
+C:\Users\DELL\Desktop\RoadMap\DJ\virtualenv.txt\Scripts\activate
+```
+5. to deactivate use keyword `deactivate`
+```
+deactivate
+```
+
+
 Replace myenv with the name you want to give to your virtual environment.
 4. To activate the virtual environment, use the workon command:
 ```
